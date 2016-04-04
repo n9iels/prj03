@@ -1,5 +1,5 @@
-# HR Project 2
-In deze repository is alle code van Project 2 te vinden. Hieronder staat een handleiding over het werken met deze repository
+# HR Project 3
+In deze repository is alle code van Project 3 te vinden. Hieronder staat een handleiding over het werken met deze repository
 
 ## Repository naar je pc halen
 1. Open Git op je pc in de map waar de code moet komen en vul het volgende commando in `git clone https://github.com/n9iels/prj03.git .` Druk op enter om het commando uit te voeren.
