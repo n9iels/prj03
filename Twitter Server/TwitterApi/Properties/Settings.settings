@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TwitterApi.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OauthConsumerKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">oX6orVxMsRFycNZtr5hGBFVr3</Value>
+    </Setting>
+    <Setting Name="OauthConsumerSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">wU8VUptvBeMUGra0y4b9beP3FiNuwhBtQeUH5VQpdasC7Syz3e</Value>
+    </Setting>
+    <Setting Name="OauthToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1125129223-L4MrcLzYYZf80ha3BkES4tQUTlHE0oEFOOJSYnq</Value>
+    </Setting>
+    <Setting Name="OauthTokenSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cSfUvLOrUBEE3TJHMEpSOhe6Zf4YDuVCYHbXTCgdN3kQI</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
