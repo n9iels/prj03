@@ -13,45 +13,44 @@ namespace Buienradar_Server
 
         static void Main(string[] args)
         {
-            IEnumerable<XElement> elements = getWeatherStation(6344);
-            
-            foreach(XElement element in elements)
-            {
-                Console.WriteLine(element);
-                Console.WriteLine("1");
-            }
-        }
-
-        public static IEnumerable<XElement> getWeatherStation (int id)
-        {
-            XDocument doc = XDocument.Load("http://xml.buienradar.nl");
-            IEnumerable<XElement> filteredElements = (from d
-                                                      in doc.Descendants("weerstation")
-                                                      where (int)d.Attribute("id") == id
-                                                      select d).ToList();
-
-            return filteredElements;
-        }
-
-        public static void database()
-        {
             // Connect to the database
             string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
             conn = new MySqlConnection(connectionString);
             conn.Open();
+
+            // Get weather data
+            Dictionary<string, string> elements = getWeatherStation(6344);
 
             // Create SQL command
             MySqlCommand command = conn.CreateCommand();
             MySqlDataReader Reader;
             command.CommandText = "SELECT * FROM weather_condition";
 
-            // Read result
-            Reader = command.ExecuteReader();
-            while (Reader.Read())
-            {
-                Console.WriteLine(Reader.GetValue(1).ToString());
-            }
             conn.Close();
+        }
+
+        public static Dictionary<string, string> getWeatherStation (int id)
+        {
+            XDocument doc = XDocument.Load("http://xml.buienradar.nl");
+            IEnumerable<XElement> filteredElements = doc.Descendants("weerstation").Where(d => (int)d.Attribute("id") == id).Select(d => d).ToList();
+
+            return createList(filteredElements);
+        }
+
+        public static Dictionary<string, string> createList(IEnumerable<XElement> elements)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+        
+            foreach (XElement element in elements)
+            {
+                data.Add("datum", element.Element("datum").Value);
+                data.Add("temperatuurGC", element.Element("temperatuurGC").Value);
+                data.Add("windsnelheidBF", element.Element("windsnelheidBF").Value);
+                data.Add("id", element.Element("icoonactueel").Attribute("ID").Value);
+                data.Add("type", element.Element("icoonactueel").Attribute("zin").Value);
+            }
+
+            return data;
         }
     }
 }
