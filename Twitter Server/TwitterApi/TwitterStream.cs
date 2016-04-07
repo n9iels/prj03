@@ -11,7 +11,7 @@ namespace TwitterApi {
         
         public FilteredStream Stream { get; }
 
-        //private TweetQueue _queue;
+        private TweetQueue _queue = new TweetQueue();
 
         public event EventHandler<MatchedTweetReceivedEventArgs> TweetReceived {
             add { Stream.TweetReceived += value; }
@@ -50,16 +50,14 @@ namespace TwitterApi {
             DateTime created = e.Tweet.CreatedAt;
             ICoordinates coords = e.Tweet.Coordinates;
             IPlace place = e.Tweet.Place;
-            Console.WriteLine(text + " **Gepost door:  " + name);
-
-            Console.WriteLine(text + " place:" + place.FullName);
+            //Console.WriteLine(text + " **Gepost door:  " + name);
 
             // Information for potential future us.
             int retweets = e.Tweet.RetweetCount;
             int favouriteCount = e.Tweet.FavoriteCount;
 
             //Enqueue de tweet
-            //Enqueue(e.Tweet)
+            this._queue.Enqueue(e.Tweet);
 
         }
     }
