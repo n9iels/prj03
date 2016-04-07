@@ -37,7 +37,7 @@ namespace TwitterApi
             string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
-            Console.WriteLine(tweet.Text + " " + Pindex);
+            //Console.WriteLine(tweet.Text + " " + Pindex);
         }
     }
 }

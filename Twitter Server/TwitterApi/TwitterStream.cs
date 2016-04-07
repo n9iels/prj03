@@ -50,7 +50,7 @@ namespace TwitterApi {
             DateTime created = e.Tweet.CreatedAt;
             ICoordinates coords = e.Tweet.Coordinates;
             IPlace place = e.Tweet.Place;
-            //Console.WriteLine(text + " **Gepost door:  " + name);
+            Console.WriteLine(text + " **Gepost door:  " + name);
 
             // Information for potential future us.
             int retweets = e.Tweet.RetweetCount;
