@@ -9,7 +9,6 @@ namespace TwitterApi {
 
         private static void Main(string[] args) {
 
-
             TwitterStream stream = new TwitterStream(
                 new TweetQueue(
                     new PositivityIndexCalculator()));

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using MySql.Data.MySqlClient;
 using Tweetinvi.Core.Interfaces;
 using TwitterApi.Data_Processors.Helpers;
 

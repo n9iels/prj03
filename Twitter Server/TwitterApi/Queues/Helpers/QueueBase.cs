@@ -24,6 +24,10 @@ namespace TwitterApi.Queues.Helpers {
             _newItem.Set();
         }
 
+        internal void Flush() {
+            _waiting.WaitOne();
+        }
+
         protected abstract void ProcessData(T data);
 
 
