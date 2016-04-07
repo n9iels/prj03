@@ -11,6 +11,8 @@ namespace TwitterApi {
         
         public FilteredStream Stream { get; }
 
+        //private TweetQueue _queue;
+
         public event EventHandler<MatchedTweetReceivedEventArgs> TweetReceived {
             add { Stream.TweetReceived += value; }
             remove { Stream.TweetReceived -= value; }
