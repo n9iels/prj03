@@ -31,10 +31,10 @@ namespace TwitterApi {
             Stream.MatchingTweetReceived += Received;
 
             // GeoCoordinates Rotterdam
-            ICoordinates sw = new Coordinates(4.400054, 51.870962);
-            ICoordinates ne = new Coordinates(4.566633, 51.991821);
-            Stream.AddLocation(sw, ne);
+            ICoordinates sw = new Coordinates(4.325111, 51.854432);
+            ICoordinates ne = new Coordinates(4.667061, 51.950285);
 
+            Stream.AddLocation(sw, ne);
             Stream.StartStreamMatchingAllConditions();
 
         }
@@ -50,8 +50,9 @@ namespace TwitterApi {
             IPlace place = e.Tweet.Place;
             Console.WriteLine(text + " **Gepost door:  " + name);
 
-            // Information for potential future us.
+            Console.WriteLine(text + " place:" + place.FullName);
 
+            // Information for potential future us.
             int retweets = e.Tweet.RetweetCount;
             int favouriteCount = e.Tweet.FavoriteCount;
 
