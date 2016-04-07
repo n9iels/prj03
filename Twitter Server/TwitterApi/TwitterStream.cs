@@ -43,15 +43,20 @@ namespace TwitterApi {
 
             // Main information needed for database
             long id = e.Tweet.Id;
+            string name = e.Tweet.CreatedBy.Name;
             string text = e.Tweet.Text;
             DateTime created = e.Tweet.CreatedAt;
             ICoordinates coords = e.Tweet.Coordinates;
             IPlace place = e.Tweet.Place;
+            Console.WriteLine(text + " **Gepost door:  " + name);
 
             // Information for potential future us.
 
             int retweets = e.Tweet.RetweetCount;
             int favouriteCount = e.Tweet.FavoriteCount;
+
+            //Enqueue de tweet
+            //Enqueue(e.Tweet)
 
         }
     }
