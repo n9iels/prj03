@@ -1,24 +1,28 @@
 ﻿using System;
 using Tweetinvi;
 using Tweetinvi.Core.Events.EventArguments;
+using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Interfaces.Models;
 using Tweetinvi.Core.Parameters;
 using Tweetinvi.Streams;
+using TwitterApi.Queues.Helpers;
 
-namespace TwitterApi {
+namespace TwitterApi.Streams {
 
-    public class TwitterStream {
+    internal class TwitterStream {
         
-        public FilteredStream Stream { get; }
+        internal FilteredStream Stream { get; }
 
-        private TweetQueue _queue = new TweetQueue();
+        private readonly QueueBase<ITweet> _queue;
 
         public event EventHandler<MatchedTweetReceivedEventArgs> TweetReceived {
             add { Stream.TweetReceived += value; }
             remove { Stream.TweetReceived -= value; }
         }
 
-        public TwitterStream() {
+        public TwitterStream(QueueBase<ITweet> queue) {
+            _queue = queue;
+
             // Authentication
             Auth.SetUserCredentials(Properties.Settings.Default.OauthConsumerKey,
                 Properties.Settings.Default.OauthConsumerSecret, Properties.Settings.Default.OauthToken,
@@ -35,7 +39,7 @@ namespace TwitterApi {
             // GeoCoordinates Rotterdam
             ICoordinates sw = new Coordinates(4.325111, 51.854432);
             ICoordinates ne = new Coordinates(4.667061, 51.950285);
-
+            
             Stream.AddLocation(sw, ne);
             Stream.StartStreamMatchingAllConditions();
 
@@ -50,14 +54,13 @@ namespace TwitterApi {
             DateTime created = e.Tweet.CreatedAt;
             ICoordinates coords = e.Tweet.Coordinates;
             IPlace place = e.Tweet.Place;
-            Console.WriteLine(text + " **Gepost door:  " + name);
 
             // Information for potential future us.
             int retweets = e.Tweet.RetweetCount;
             int favouriteCount = e.Tweet.FavoriteCount;
 
-            //Enqueue de tweet
-            this._queue.Enqueue(e.Tweet);
+            //Enqueue the tweet
+            _queue.Enqueue(e.Tweet);
 
         }
     }

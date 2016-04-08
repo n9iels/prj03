@@ -87,8 +87,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITweetProcessor.cs" />
-    <Compile Include="PindexCalculator.cs" />
+    <Compile Include="Data Processors\Helpers\ITweetProcessor.cs" />
+    <Compile Include="Data Processors\MatchFinder\Helpers\IMatchFinder.cs" />
+    <Compile Include="Data Processors\MatchFinder\TxtNewLineMatchFinder.cs" />
+    <Compile Include="Data Processors\PositivityIndexCalculator.cs" />
+    <Compile Include="Loggers\Helpers\ILogger.cs" />
+    <Compile Include="Loggers\TweetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -96,8 +100,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TweetQueue.cs" />
-    <Compile Include="TwitterStream.cs" />
+    <Compile Include="Queues\Helpers\QueueBase.cs" />
+    <Compile Include="Queues\TweetQueue.cs" />
+    <Compile Include="Streams\TwitterStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
