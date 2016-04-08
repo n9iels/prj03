@@ -17,47 +17,48 @@ namespace Buienradar_Server
 
             while (true)
             {
-                Dictionary<string, string> elements = getWeatherStation(6344);
+                Dictionary<string, string> element = GetWeatherStation(6344);
 
-                if (LastDate != elements["datum"])
+                if (LastDate != element["datum"])
                 {
                     // Do something wit the database
-
+                    InsertIntoDatabase(element);
 
                     // Set last date
-                    LastDate = elements["datum"];
+                    LastDate = element["datum"];
                 }
 
                 System.Threading.Thread.Sleep(300000);
             }
         }
 
-        public static Dictionary<string, string> getWeatherStation (int id)
+        public static Dictionary<string, string> GetWeatherStation (int id)
         {
             XDocument doc = XDocument.Load("http://xml.buienradar.nl");
-            IEnumerable<XElement> filteredElements = doc.Descendants("weerstation").Where(d => (int)d.Attribute("id") == id).Select(d => d).ToList();
+            XElement filteredElements = doc.Descendants("weerstation").Where(d => (int)d.Attribute("id") == id).Select(d => d).Single();
 
-            return createList(filteredElements);
+            return CreateList(filteredElements);
         }
 
-        public static Dictionary<string, string> createList(IEnumerable<XElement> elements)
+        public static Dictionary<string, string> CreateList(XElement element)
         {
             Dictionary<string, string> data = new Dictionary<string, string>();
-        
-            foreach (XElement element in elements)
-            {
-                data.Add("datum", element.Element("datum").Value);
-                data.Add("temperatuurGC", element.Element("temperatuurGC").Value);
-                data.Add("windsnelheidBF", element.Element("windsnelheidBF").Value);
-                data.Add("id", element.Element("icoonactueel").Attribute("ID").Value);
-                data.Add("type", element.Element("icoonactueel").Attribute("zin").Value);
-            }
+
+            data.Add("stationnaam", element.Element("stationnaam").Value);
+            data.Add("datum", element.Element("datum").Value);
+            data.Add("temperatuurGC", element.Element("temperatuurGC").Value);
+            data.Add("windsnelheidMS", element.Element("windsnelheidMS").Value);
+            data.Add("windsnelheidBF", element.Element("windsnelheidBF").Value);
+            data.Add("luchtvochtigheid", element.Element("luchtvochtigheid").Value);
+            data.Add("regenMMPU", element.Element("regenMMPU").Value);
+            data.Add("id", element.Element("icoonactueel").Attribute("ID").Value);
+            data.Add("type", element.Element("icoonactueel").Attribute("zin").Value);
 
             return data;
         }
 
         
-        public static void database()
+        public static void InsertIntoDatabase(Dictionary<string, string> data)
         {
             // Connect to the database
             string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
@@ -66,8 +67,16 @@ namespace Buienradar_Server
 
             // Create SQL command
             MySqlCommand command = conn.CreateCommand();
-            //command.CommandText = "CREATE TABLE weather_condition(datetime DATETIME,temperatuurGC FLOAT(3),windsnelheidBF INT(2), PRIMARY KEY (datetime));CREATE TABLE weather_types(id VARCHAR(11),name VARCHAR(255), PRIMARY KEY (id)); ";
-            command.CommandText = "SELECT * FROM test";
+            command.CommandText  = "INSERT IGNORE INTO weather_condition VALUES(@date, @temperaturegc, @windspeedms, @windspeedbf, @humidity, @rainmmpu);";
+            command.CommandText += "INSERT IGNORE INTO weather_types VALUES(@id, @name);";
+            command.Parameters.AddWithValue("@date", DateTime.Parse(data["datum"]));
+            command.Parameters.AddWithValue("@temperaturegc", data["temperatuurGC"]);
+            command.Parameters.AddWithValue("@windspeedms", data["windsnelheidMS"]);
+            command.Parameters.AddWithValue("@windspeedbf", data["windsnelheidBF"]);
+            command.Parameters.AddWithValue("@humidity", data["luchtvochtigheid"]);
+            command.Parameters.AddWithValue("@rainmmpu", data["regenMMPU"]);
+            command.Parameters.AddWithValue("@id", data["id"]);
+            command.Parameters.AddWithValue("@name", data["stationnaam"]);
             command.ExecuteNonQuery();
 
             conn.Close();
