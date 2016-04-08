@@ -17,7 +17,7 @@ namespace Buienradar_Server
 
             // Create SQL command
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "INSERT IGNORE INTO weather_condition VALUES(@date, @temperaturegc, @windspeedms, @windspeedbf, @humidity, @rainmmpu);";
+            command.CommandText = "INSERT IGNORE INTO weather_condition VALUES(@id, @date, @temperaturegc, @windspeedms, @windspeedbf, @humidity, @rainmmpu);";
             command.CommandText += "INSERT IGNORE INTO weather_types VALUES(@id, @name);";
             command.Parameters.AddWithValue("@date", DateTime.Parse(data["datum"]));
             command.Parameters.AddWithValue("@temperaturegc", data["temperatuurGC"]);
