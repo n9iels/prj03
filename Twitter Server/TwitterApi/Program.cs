@@ -5,6 +5,7 @@ using TwitterApi.Data_Processors;
 using TwitterApi.Data_Processors.Helpers;
 using TwitterApi.Data_Processors.MatchFinder;
 using TwitterApi.Data_Processors.MatchFinder.Helpers;
+using TwitterApi.Loggers;
 using TwitterApi.Queues;
 using TwitterApi.Queues.Helpers;
 using TwitterApi.Streams;
@@ -18,7 +19,7 @@ namespace TwitterApi {
             TwitterStream stream = new TwitterStream(
                 new TweetQueue(
                     new PositivityIndexCalculator(
-                        new TxtNewLineMatchFinder())));
+                        new TxtNewLineMatchFinder(), new TweetLogger())));
 
             stream.Start();
         }

@@ -34,17 +34,15 @@ namespace TwitterApi.Data_Processors {
         }
 
         protected void UploadToDatabase(ITweet tweet, double pIndex) {
-            //string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
-            //MySqlConnection conn = new MySqlConnection(connectionString);
-            //conn.Open();
             using (
                 MySqlConnection conn =
                     new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString)) {
                 conn.Open();
-                MySqlCommand com = new MySqlCommand() {
-                    Connection = conn,
-                    CommandText = "INSERT INTO "
-                };
+                MySqlCommand com = MySqlQueryGenerator.GenerateQuery(conn,
+                    "INSERT INTO twitter_tweets VALUES(@id,@created,@profileId,@placeId,@text,@coordLong,@coordLat,@pIndex);",
+                    tweet.Id, tweet.CreatedAt, tweet.CreatedBy.Id, tweet.Place.IdStr, tweet.Text,
+                    tweet.Coordinates.Longitude, tweet.Coordinates.Latitude, pIndex);
+                com.ExecuteNonQuery();
             }
             _logger.Log(new TweetLogData(tweet, pIndex));
         }
