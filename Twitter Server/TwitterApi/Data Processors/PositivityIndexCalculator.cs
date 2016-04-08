@@ -40,9 +40,21 @@ namespace TwitterApi.Data_Processors {
                 conn.Open();
                 MySqlCommand com = MySqlQueryGenerator.GenerateQuery(conn,
                     "INSERT INTO twitter_tweets VALUES(@id,@created,@profileId,@placeId,@text,@coordLong,@coordLat,@pIndex);",
-                    tweet.Id, tweet.CreatedAt, tweet.CreatedBy.Id, tweet.Place.IdStr, tweet.Text,
-                    tweet.Coordinates.Longitude, tweet.Coordinates.Latitude, pIndex);
+                    tweet.Id, tweet.CreatedAt, tweet.CreatedBy.Id, tweet.Place?.IdStr, tweet.Text,
+                    tweet.Coordinates?.Longitude, tweet.Coordinates?.Latitude, pIndex);
                 com.ExecuteNonQuery();
+
+                if (tweet.Place != null) {
+                    MySqlCommand comPlaces = MySqlQueryGenerator.GenerateQuery(conn,
+                        "INSERT IGNORE INTO twitter_places VALUES(@id,@name,@fullName)", tweet.Place.IdStr, tweet.Place.Name,
+                        tweet.Place.FullName);
+                    comPlaces.ExecuteNonQuery();
+                }
+
+                MySqlCommand comProfiles = MySqlQueryGenerator.GenerateQuery(conn,
+                    "INSERT IGNORE INTO twitter_profiles VALUES (@id,@name,@screenName,@profileImage);", tweet.CreatedBy.Id,
+                    tweet.CreatedBy.Name, tweet.CreatedBy.ScreenName, tweet.CreatedBy.ProfileImageUrl);
+                comProfiles.ExecuteNonQuery();
             }
             _logger.Log(new TweetLogData(tweet, pIndex));
         }

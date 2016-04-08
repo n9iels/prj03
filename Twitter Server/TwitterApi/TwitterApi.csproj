@@ -90,6 +90,7 @@
     <Compile Include="Data Processors\Helpers\ITweetProcessor.cs" />
     <Compile Include="Data Processors\MatchFinder\Helpers\IMatchFinder.cs" />
     <Compile Include="Data Processors\MatchFinder\TxtNewLineMatchFinder.cs" />
+    <Compile Include="Data Processors\MySqlQueryGenerator.cs" />
     <Compile Include="Data Processors\PositivityIndexCalculator.cs" />
     <Compile Include="Loggers\Helpers\ILogger.cs" />
     <Compile Include="Loggers\TweetLogger.cs" />

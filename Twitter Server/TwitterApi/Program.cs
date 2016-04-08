@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using TwitterApi.Data_Processors;
 using TwitterApi.Data_Processors.Helpers;
 using TwitterApi.Data_Processors.MatchFinder;
@@ -15,6 +17,7 @@ namespace TwitterApi {
     internal class Program {
 
         private static void Main(string[] args) {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
             TwitterStream stream = new TwitterStream(
                 new TweetQueue(
