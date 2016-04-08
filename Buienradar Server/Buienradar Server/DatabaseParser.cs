@@ -10,7 +10,8 @@ namespace Buienradar_Server
         public static void UploadToDatabase(Dictionary<string, string> data)
         {
             // Connect to the database
-            string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
+            string connectionString = "Server=daniel-molenaar.com; database=danielmo_project3; UID=danielmo_pr3Serv; password=RF7*M7AK+lKOzCA;";
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
 

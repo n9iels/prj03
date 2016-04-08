@@ -5,6 +5,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Threading;
+using System.Globalization;
 
 namespace Buienradar_Server
 {
@@ -12,11 +14,15 @@ namespace Buienradar_Server
     {
         static void Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
             while (true)
             {
                 // Get whole document
                 try {
-                    Dictionary<string, string> data = XmlFilter.FilterData(WeatherRetrieval.GetData("http://xml.buienradar.nl"), 6344);
+
+                    XDocument doc = WeatherRetrieval.GetData("http://xml.buienradar.nl");
+                    Dictionary<string, string> data = XmlFilter.FilterData(doc, 6344);
                     DatabaseParser.UploadToDatabase(data);
 
                     // Console log
