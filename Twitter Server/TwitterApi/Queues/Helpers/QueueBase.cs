@@ -39,13 +39,14 @@ namespace TwitterApi.Queues.Helpers {
                 if (index == 1) // Terminate waithandle called. Exit method.
                     return;
 
+                _newItem.Reset();
+                _waiting.Reset();
+
                 Queue<Action> queueCopy;
                 lock (_queue) {
                     queueCopy = new Queue<Action>(_queue);
                     _queue.Clear();
                 }
-                _newItem.Reset();
-                _waiting.Reset();
 
                 int queueLength = queueCopy.Count;
                 for (int i = 0; i < queueLength; i++)

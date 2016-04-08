@@ -6,9 +6,9 @@ namespace TwitterApi.Queues
 {
     internal class TweetQueue : QueueBase<ITweet>
     {
-        private readonly ITweetProcessor _processor;
+        private readonly IDataProcessor<ITweet> _processor;
 
-        public TweetQueue(ITweetProcessor processor) {
+        public TweetQueue(IDataProcessor<ITweet> processor) {
             _processor = processor;
         }
 

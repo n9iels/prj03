@@ -1,7 +1,7 @@
 ﻿using Tweetinvi.Core.Interfaces;
 
 namespace TwitterApi.Data_Processors.Helpers {
-    internal interface ITweetProcessor {
-        void Process(ITweet tweet);
+    internal interface IDataProcessor<in T> {
+        void Process(T data);
     }
 }
