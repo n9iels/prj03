@@ -1,6 +1,6 @@
 ﻿using System;
-using Tweetinvi.Core.Interfaces;
 using TwitterApi.Loggers.Helpers;
+using TwitterApi.Loggers.Log_Containers;
 
 namespace TwitterApi.Loggers {
     internal class TweetLogger : ILogger<TweetLogData> {
@@ -15,16 +15,5 @@ namespace TwitterApi.Loggers {
             Console.WriteLine();
             Console.ResetColor();
         }
-    }
-
-    internal class TweetLogData {
-        internal ITweet Tweet { get; }
-        internal double PIndex { get; }
-
-        public TweetLogData(ITweet tweet, double pIndex) {
-            Tweet = tweet;
-            PIndex = pIndex;
-        }
-        
     }
 }
