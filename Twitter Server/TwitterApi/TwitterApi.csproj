@@ -93,6 +93,7 @@
     <Compile Include="Data Processors\MySqlQueryGenerator.cs" />
     <Compile Include="Data Processors\PositivityIndexCalculator.cs" />
     <Compile Include="Loggers\Helpers\ILogger.cs" />
+    <Compile Include="Loggers\Log Containers\TweetLogData.cs" />
     <Compile Include="Loggers\TweetLogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
