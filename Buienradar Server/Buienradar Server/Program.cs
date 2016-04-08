@@ -13,20 +13,23 @@ namespace Buienradar_Server
 
         static void Main(string[] args)
         {
-            // Connect to the database
-            string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
-            conn = new MySqlConnection(connectionString);
-            conn.Open();
+            string LastDate = "";
 
-            // Get weather data
-            Dictionary<string, string> elements = getWeatherStation(6344);
+            while (true)
+            {
+                Dictionary<string, string> elements = getWeatherStation(6344);
 
-            // Create SQL command
-            MySqlCommand command = conn.CreateCommand();
-            MySqlDataReader Reader;
-            command.CommandText = "SELECT * FROM weather_condition";
+                if (LastDate != elements["datum"])
+                {
+                    // Do something wit the database
 
-            conn.Close();
+
+                    // Set last date
+                    LastDate = elements["datum"];
+                }
+
+                System.Threading.Thread.Sleep(300000);
+            }
         }
 
         public static Dictionary<string, string> getWeatherStation (int id)
@@ -52,5 +55,23 @@ namespace Buienradar_Server
 
             return data;
         }
+
+        
+        public static void database()
+        {
+            // Connect to the database
+            string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
+            conn = new MySqlConnection(connectionString);
+            conn.Open();
+
+            // Create SQL command
+            MySqlCommand command = conn.CreateCommand();
+            //command.CommandText = "CREATE TABLE weather_condition(datetime DATETIME,temperatuurGC FLOAT(3),windsnelheidBF INT(2), PRIMARY KEY (datetime));CREATE TABLE weather_types(id VARCHAR(11),name VARCHAR(255), PRIMARY KEY (id)); ";
+            command.CommandText = "SELECT * FROM test";
+            command.ExecuteNonQuery();
+
+            conn.Close();
+        }
+        
     }
 }
