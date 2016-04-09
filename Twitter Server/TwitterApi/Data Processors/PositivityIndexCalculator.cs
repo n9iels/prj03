@@ -6,7 +6,6 @@ using MySql.Data.MySqlClient;
 using Tweetinvi.Core.Interfaces;
 using TwitterApi.Data_Processors.Helpers;
 using TwitterApi.Data_Processors.MatchFinder.Helpers;
-using TwitterApi.Loggers;
 using TwitterApi.Loggers.Helpers;
 using TwitterApi.Loggers.Log_Containers;
 
@@ -40,9 +39,9 @@ namespace TwitterApi.Data_Processors {
                     new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString)) {
                 conn.Open();
                 MySqlCommand com = MySqlQueryGenerator.GenerateQuery(conn,
-                    "INSERT INTO twitter_tweets VALUES(@id,@created,@profileId,@placeId,@text,@coordLong,@coordLat,@pIndex);",
+                    "INSERT INTO twitter_tweets VALUES(@id,@created,@profileId,@placeId,@text,@coordLong,@coordLat,@pIndex,@language);",
                     tweet.Id, tweet.CreatedAt, tweet.CreatedBy.Id, tweet.Place?.IdStr, tweet.Text,
-                    tweet.Coordinates?.Longitude, tweet.Coordinates?.Latitude, pIndex);
+                    tweet.Coordinates?.Longitude, tweet.Coordinates?.Latitude, pIndex, tweet.Language.ToString());
                 com.ExecuteNonQuery();
 
                 if (tweet.Place != null) {

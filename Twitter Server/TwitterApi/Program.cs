@@ -17,7 +17,6 @@ namespace TwitterApi {
                 new TweetQueue(
                     new PositivityIndexCalculator(
                         new TxtNewLineMatchFinder(), new TweetLogger())));
-
             stream.Start();
         }
 
