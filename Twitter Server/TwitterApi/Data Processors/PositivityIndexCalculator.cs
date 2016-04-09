@@ -8,6 +8,7 @@ using TwitterApi.Data_Processors.Helpers;
 using TwitterApi.Data_Processors.MatchFinder.Helpers;
 using TwitterApi.Loggers;
 using TwitterApi.Loggers.Helpers;
+using TwitterApi.Loggers.Log_Containers;
 
 namespace TwitterApi.Data_Processors {
     internal class PositivityIndexCalculator : IDataProcessor<ITweet> {
