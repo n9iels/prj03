@@ -1,56 +1,41 @@
 ﻿using System;
-using System.Configuration;
-using MySql.Data.MySqlClient;
-using System.Xml.Linq;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Threading;
+using System.Globalization;
 
 namespace Buienradar_Server
 {
     class Program
     {
-        public static MySqlConnection conn;
-
         static void Main(string[] args)
         {
-            // Connect to the database
-            string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
-            conn = new MySqlConnection(connectionString);
-            conn.Open();
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            // Get weather data
-            Dictionary<string, string> elements = getWeatherStation(6344);
-
-            // Create SQL command
-            MySqlCommand command = conn.CreateCommand();
-            MySqlDataReader Reader;
-            command.CommandText = "SELECT * FROM weather_condition";
-
-            conn.Close();
-        }
-
-        public static Dictionary<string, string> getWeatherStation (int id)
-        {
-            XDocument doc = XDocument.Load("http://xml.buienradar.nl");
-            IEnumerable<XElement> filteredElements = doc.Descendants("weerstation").Where(d => (int)d.Attribute("id") == id).Select(d => d).ToList();
-
-            return createList(filteredElements);
-        }
-
-        public static Dictionary<string, string> createList(IEnumerable<XElement> elements)
-        {
-            Dictionary<string, string> data = new Dictionary<string, string>();
-        
-            foreach (XElement element in elements)
+            while (true)
             {
-                data.Add("datum", element.Element("datum").Value);
-                data.Add("temperatuurGC", element.Element("temperatuurGC").Value);
-                data.Add("windsnelheidBF", element.Element("windsnelheidBF").Value);
-                data.Add("id", element.Element("icoonactueel").Attribute("ID").Value);
-                data.Add("type", element.Element("icoonactueel").Attribute("zin").Value);
-            }
+                // Get whole document
+                try {
 
-            return data;
+                    XDocument doc = WeatherRetrieval.GetData("http://xml.buienradar.nl");
+                    Dictionary<string, string> data = XmlFilter.FilterData(doc, 6344);
+                    DatabaseParser.UploadToDatabase(data);
+
+                    // Console log
+                    Console.WriteLine("Weather updated " + data["datum"]);
+                }
+                catch (WebException)
+                {
+                    Console.WriteLine("Unable to load XML Data");
+                }
+
+                // Wait 5 minutes
+                System.Threading.Thread.Sleep(5 * 1000 * 60);
+            }
         }
     }
 }
