@@ -1,4 +1,4 @@
-﻿<Window x:Class="DataVisualization.WindowsClient.Views.MainWindow"
+﻿<Window x:Class="DataVisualization.WindowsClient.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
         mc:Ignorable="d"
-        Title="DataBeest" Height="350" Width="525">
+        Title="DataBeest" Height="720" Width="1080">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -14,8 +14,8 @@
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
             <v:HomeView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:Page2ViewModel}">
-            <v:Page2View/>
+        <DataTemplate DataType="{x:Type vm:GraphViewModel}">
+            <v:GraphView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

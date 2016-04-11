@@ -1,4 +1,5 @@
-﻿using DataVisualization.Data.Models.MainModel;
+﻿using System.Windows.Input;
+using DataVisualization.Data.Models.MainModel;
 using DataVisualization.Windows;
 
 namespace DataVisualization.WindowsClient.ViewModels {
@@ -19,6 +20,9 @@ namespace DataVisualization.WindowsClient.ViewModels {
                 OnPropertyChanged();
             }
         }
+
+        public ICommand DisplayHomeCommand => new DelegateCommand(x => CurrentView = new HomeViewModel());
+        public ICommand DisplayGraphCommand => new DelegateCommand(x => CurrentView = new GraphViewModel());
 
         #endregion
     }
