@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
                 <Setter Property="Background" Value="Transparent" />
@@ -29,7 +30,6 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
-
         <Grid Grid.Row="0" Grid.Column="0">
             <chart:DoughnutChart
                 Style="{StaticResource ChartStyle}"
@@ -45,8 +45,12 @@
             </chart:DoughnutChart>
         </Grid>
 
-        <Grid Grid.Row="0" Margin="0, 30, 0, 0" Grid.Column="1" VerticalAlignment="Top">
-            <Button Style="{DynamicResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
-        </Grid>
+    <Grid Grid.Row="0" Margin="0, 30, 0, 0" Grid.Column="1" VerticalAlignment="Top">
+        <Button Style="{DynamicResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
+    </Grid>
+    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
+        <Button Style="{StaticResource Button}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}"/>
+        <Button Style="{StaticResource Button}" Content="Update" Command="{Binding UpdateCommand}" Margin="0,50,0,0"/>
+    </StackPanel>
     </Grid>
 </UserControl>
