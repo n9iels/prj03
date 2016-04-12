@@ -6,7 +6,9 @@
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
         mc:Ignorable="d"
-        Title="DataBeest" Height="720" Width="1080">
+        Title="DataBeest"
+        Icon="pack://application:,,,/Resources/beast.png"
+        Height="720" Width="1080">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
