@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,9 +122,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Background.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DataVisualization.Data\DataVisualization.Data.csproj">
       <Project>{296037f6-04d7-4052-b4a5-85529c706199}</Project>
       <Name>DataVisualization.Data</Name>
@@ -129,6 +130,9 @@
       <Project>{a0154b25-186a-4ff5-9e6f-69d9bfebf9ac}</Project>
       <Name>DataVisualization.Windows</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

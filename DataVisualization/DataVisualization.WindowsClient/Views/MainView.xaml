@@ -20,7 +20,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/Background.jpg"></ImageBrush>
+            <ImageBrush ImageSource="pack://application:,,,/Resources/background.png" TileMode="FlipX" Stretch="Uniform" AlignmentY="Top" Viewport="0,0,81,81" ViewportUnits="Absolute"></ImageBrush>
         </Grid.Background>
         <ContentControl Content="{Binding CurrentView}" Focusable="False"/>
     </Grid>

@@ -6,11 +6,26 @@
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.DataContext>
         <vm:HomeViewModel/>
     </UserControl.DataContext>
-    <Grid>
-        <Button Content="Graphs" Margin="100,200,100,50" Command="{Binding DataContext.DisplayGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}"></Button>
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml"></ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" x:Name="label" Content="Databeast" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" Width="390" FontSize="64" FontWeight="Bold" FontFamily="Lucida Sans Regular" Foreground="#2196F3"></Label>
+       
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Style="{DynamicResource Button}" Content="Graphs" Command="{Binding DataContext.DisplayGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+        </StackPanel>
     </Grid>
 </UserControl>
