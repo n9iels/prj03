@@ -30,23 +30,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
             }
 
             // Close database after execution
-            conn.Close();
-
-            
-        }
-
-        private object selectedItem = null;
-        public object SelectedItem
-        {
-            get
-            {
-                return selectedItem;
-            }
-            set
-            {
-                // selected item has changed
-                selectedItem = value;
-            }
+            conn.Close();   
         }
     }
 

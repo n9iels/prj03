@@ -5,45 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
-             xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart" 
-             Height="720" Width="1080">
+             xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
     <UserControl.DataContext>
         <vm:GraphViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="MinimalChartStyle" TargetType="chart:DoughnutChart">
-                <Setter Property="Width" Value="720"/>
-                <Setter Property="Height" Value="720"/>
+            <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="InnerRadiusRatio" Value="0.60" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="270" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
-        <chart:DoughnutChart
-        Style="{DynamicResource MinimalChartStyle}"
-        ChartTitle="Languages"
-        ChartSubTitle="Chart with different languages"
-        InnerRadiusRatio="0.60"
-        SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" >
-            <chart:PieChart.Series>
-                <chart:ChartSeries
-                SeriesTitle="Data"
-                DisplayMember="Category"
-                ValueMember="Number"
-                ItemsSource="{Binding Path=Data}" />
-            </chart:PieChart.Series>
-        </chart:DoughnutChart>
 
-        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
-            <Button Style="{DynamicResource Button}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
-        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <chart:DoughnutChart
+                Style="{StaticResource ChartStyle}"
+                ChartTitle="Languages"
+                ChartSubTitle="Chart with amount of tweets per language">
+                <chart:PieChart.Series>
+                    <chart:ChartSeries
+                        SeriesTitle="Data"
+                        DisplayMember="Category"
+                        ValueMember="Number"
+                        ItemsSource="{Binding Path=Data}" />
+                </chart:PieChart.Series>
+            </chart:DoughnutChart>
+        </Grid>
+
+        <Grid Grid.Row="0" Margin="0, 30, 0, 0" Grid.Column="1" VerticalAlignment="Top">
+            <Button Style="{DynamicResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
+        </Grid>
     </Grid>
 </UserControl>

@@ -5,27 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1080">
+             mc:Ignorable="d">
     <UserControl.DataContext>
         <vm:HomeViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml"></ResourceDictionary>
     </UserControl.Resources>
-    <Grid Margin="50">
+    <Grid Width="300">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="70" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" x:Name="label" Content="Databeast" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" Width="390" FontSize="64" FontWeight="Bold" FontFamily="Lucida Sans Regular" Foreground="#2196F3"></Label>
-       
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Grid Grid.Row="0" HorizontalAlignment="Center">
+            <Label x:Name="label" Content="Databeast" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" FontSize="64" FontWeight="Light" FontFamily="Segoe UI" Foreground="#2196F3"></Label>
+        </Grid>
+        
+        <Grid Grid.Row="1" VerticalAlignment="Center">
             <Button Style="{DynamicResource Button}" Content="Graphs" Command="{Binding DataContext.DisplayGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
-        </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" VerticalAlignment="Center">
+            <Button Style="{DynamicResource Button}" Content="Exit" Command="{Binding DataContext.CloseApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+        </Grid>
     </Grid>
 </UserControl>
