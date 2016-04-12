@@ -1,60 +1,54 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using DataVisualization.Windows;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Automation.Peers;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Shapes;
+using DataVisualization.Data.Models.GraphModel;
 using MySql.Data.MySqlClient;
 
 namespace DataVisualization.WindowsClient.ViewModels {
     public class GraphViewModel : ViewModelBase {
-        public ObservableCollection<PieChart> Data { get; private set; }
 
-        public GraphViewModel()
-        {
-            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString);
-            conn.Open();
+        private object _dataLock = new object();
+        public ObservableCollection<PieChartModel> Data { get; private set; }
 
-            // Create SQL command
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT language, COUNT(id) AS amount FROM twitter_tweets GROUP BY language HAVING COUNT(id) > 75 AND language <> 'NULL' AND language <> 'UN_NotReferenced'";
+        public GraphViewModel() {
+            Data = new ObservableCollection<PieChartModel>();
+            BindingOperations.EnableCollectionSynchronization(Data, _dataLock);
+            new Task(UpdateChart).Start();
+        }
 
-            Data = new ObservableCollection<PieChart>();
-
-            using (MySqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    string language = reader.GetValue(0).ToString();
-                    int amount      = reader.GetInt32(1);
-
-                    Data.Add(new PieChart() { Category = language, Number = amount });
+        public void UpdateChart() {
+            using (ProjectEntities db = new ProjectEntities()) {
+                var res = from t in db.twitter_tweets
+                          //where t.created_at > time_limit
+                          group t by t.language
+                    into lang
+                          where lang.Count() > 75 && lang.Key != null && lang.Key != "UN_NotReferenced"
+                          select new PieChartModel() { Category = lang.Key, Number = lang.Count() };
+                Data.Clear();
+                foreach (PieChartModel chart in res) {
+                    Data.Add(chart);
                 }
             }
-
-            // Close database after execution
-            conn.Close();
-
-            
+  
         }
 
-        private object selectedItem = null;
-        public object SelectedItem
-        {
-            get
-            {
-                return selectedItem;
-            }
-            set
-            {
-                // selected item has changed
-                selectedItem = value;
+
+        public ICommand UpdateCommand => new DelegateCommand((x) => new Task(UpdateChart).Start());
+
+        private object _selectedItem = null;
+        public object SelectedItem {
+            get { return _selectedItem; }
+            set {
+                _selectedItem = value;
+                OnPropertyChanged();
             }
         }
-    }
-
-    // class which represent a data point in the chart
-    public class PieChart
-    {
-        public string Category { get; set; }
-
-        public int Number { get; set; }
     }
 }
