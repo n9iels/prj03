@@ -16,16 +16,17 @@ namespace DataVisualization.WindowsClient.ViewModels {
         {
             Data = new ObservableCollection<PieChartModel>();
             //BindingOperations.EnableCollectionSynchronization(Data, _dataLock);
-            new Task(UpdateChart).Start();
+            new Task(RefreshChart).Start();
         }
 
-        public void UpdateChart() {
+        public void RefreshChart() {
             const double factor = 0.009;
 
             // Last 45 minutes
             DateTime time = DateTime.UtcNow - new TimeSpan(0, 0, 45, 0);
 
             using (ProjectEntities db = new ProjectEntities()) {
+                
                 var first = from t in db.twitter_tweets
                     //where t.created_at > time
                     group t by t.language
@@ -40,6 +41,8 @@ namespace DataVisualization.WindowsClient.ViewModels {
                     where entry.Count >= sum * factor
                     select new PieChartModel() { Category = entry.Language.Key, Number = entry.Language.Count() };
 
+
+                
 
                 var lowCount =
                     first.Select(
@@ -58,7 +61,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
         }
 
 
-        public ICommand UpdateCommand => new DelegateCommand((x) => new Task(UpdateChart).Start());
+        public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
 
         private object _selectedItem = null;
         public object SelectedItem
