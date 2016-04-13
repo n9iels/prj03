@@ -16,7 +16,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Row="0" Grid.Column="0">
@@ -49,9 +49,9 @@
             </sparrow:SparrowChart>
         </Grid>
 
-        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
+        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
-            <Button Style="{StaticResource Button}" Content="Update" Command="{Binding RefreshCommand}" Margin="0,50,0,0"/>
+            <Button Style="{StaticResource RefreshButton}" Content="Update" Command="{Binding RefreshCommand}" Margin="0,50,0,0" />
         </StackPanel>
     </Grid>
 </UserControl>
