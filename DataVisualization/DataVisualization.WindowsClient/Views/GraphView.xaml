@@ -6,7 +6,9 @@
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             mc:Ignorable="d"
+             d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.DataContext>
         <vm:GraphViewModel/>
     </UserControl.DataContext>
