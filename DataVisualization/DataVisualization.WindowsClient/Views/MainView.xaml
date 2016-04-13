@@ -16,8 +16,8 @@
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
             <v:HomeView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GraphViewModel}">
-            <v:GraphView/>
+        <DataTemplate DataType="{x:Type vm:PieChartViewModel}">
+            <v:PieChartView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
