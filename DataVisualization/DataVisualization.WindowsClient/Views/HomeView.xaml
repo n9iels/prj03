@@ -18,18 +18,22 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="70" />
             <RowDefinition Height="70" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" HorizontalAlignment="Center">
-            <Label x:Name="label" Content="Databeast" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" FontSize="64" FontWeight="Light" FontFamily="Segoe UI" Foreground="#2196F3"></Label>
+            <Label x:Name="label" Content="Databeest" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" FontSize="64" FontWeight="Light" FontFamily="Segoe UI" Foreground="#2196F3"></Label>
         </Grid>
         
         <Grid Grid.Row="1" VerticalAlignment="Center">
-            <Button Style="{StaticResource Button}" Content="Graphs" Command="{Binding DataContext.DisplayLineGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+            <Button Style="{StaticResource Button}" Content="Pie Charts" Command="{Binding DataContext.DisplayGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="2" VerticalAlignment="Center">
+            <Button Style="{StaticResource Button}" Content="Line Graphs" Command="{Binding DataContext.DisplayLineGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+        </Grid>
+        <Grid Grid.Row="3" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Exit" Command="{Binding DataContext.CloseApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
     </Grid>
