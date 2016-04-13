@@ -44,6 +44,7 @@
                         ValueMember="Number"
                         ItemsSource="{Binding Path=Data}" />
                 </chart:PieChart.Series>
+                
             </chart:DoughnutChart>
         </Grid>
 
