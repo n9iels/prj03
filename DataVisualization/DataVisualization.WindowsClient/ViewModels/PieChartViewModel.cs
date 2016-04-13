@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Configuration;
-using DataVisualization.Windows;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Automation.Peers;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Shapes;
-using DataVisualization.Data.Models.GraphModel;
-using MySql.Data.MySqlClient;
+using DataVisualization.Data.Models.PieChartModel;
+using DataVisualization.Windows;
 
-namespace DataVisualization.WindowsClient.ViewModels
-{
-    public class GraphViewModel : ViewModelBase
+namespace DataVisualization.WindowsClient.ViewModels {
+    public class PieChartViewModel : ViewModelBase
     {
 
-        private object _dataLock = new object();
         public ObservableCollection<PieChartModel> Data { get; private set; }
 
-        public GraphViewModel()
+        public PieChartViewModel()
         {
             Data = new ObservableCollection<PieChartModel>();
             //BindingOperations.EnableCollectionSynchronization(Data, _dataLock);
