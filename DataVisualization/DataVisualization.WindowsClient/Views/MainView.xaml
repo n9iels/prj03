@@ -19,6 +19,9 @@
         <DataTemplate DataType="{x:Type vm:PieChartViewModel}">
             <v:PieChartView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LineGraphViewModel}">
+            <v:LineGraphView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.Background>

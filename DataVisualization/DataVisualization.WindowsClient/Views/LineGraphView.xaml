@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.LineGraphView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views"
+             xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
+             xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+             xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1080">
+    <UserControl.DataContext>
+        <vm:LineGraphViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0">
+            <sparrow:SparrowChart>
+                <sparrow:SparrowChart.DataContext>
+                    <vm:LineGraphViewModel />
+                </sparrow:SparrowChart.DataContext>
+                <sparrow:SparrowChart.XAxis>
+                    <sparrow:DateTimeXAxis StringFormat="ddd dd MMM yyyy" />
+                </sparrow:SparrowChart.XAxis>
+                <sparrow:SparrowChart.YAxis>
+                    <sparrow:LinearYAxis/>
+                </sparrow:SparrowChart.YAxis>
+                <sparrow:LineSeries PointsSource="{Binding Data}" XPath="Date" YPath="Temperature"/>
+            </sparrow:SparrowChart>
+        </Grid>
+
+        <Grid Grid.Row="0" Margin="0, 30, 0, 0" Grid.Column="1" VerticalAlignment="Top">
+            <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
+        </Grid>
+        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
+            <Button Style="{StaticResource Button}" Content="Update" Command="{Binding RefreshCommand}" Margin="0,50,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
