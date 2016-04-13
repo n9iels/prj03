@@ -22,25 +22,44 @@ namespace DataVisualization.WindowsClient.ViewModels
         public GraphViewModel()
         {
             Data = new ObservableCollection<PieChartModel>();
-            BindingOperations.EnableCollectionSynchronization(Data, _dataLock);
+            //BindingOperations.EnableCollectionSynchronization(Data, _dataLock);
             new Task(UpdateChart).Start();
         }
 
-        public void UpdateChart()
-        {
-            using (ProjectEntities db = new ProjectEntities())
-            {
-                var res = from t in db.twitter_tweets
-                              //where t.created_at > time_limit
-                          group t by t.language
+        public void UpdateChart() {
+            const double factor = 0.009;
+
+            // Last 45 minutes
+            DateTime time = DateTime.UtcNow - new TimeSpan(0, 0, 45, 0);
+
+            using (ProjectEntities db = new ProjectEntities()) {
+                var first = from t in db.twitter_tweets
+                    //where t.created_at > time
+                    group t by t.language
                     into lang
-                          where lang.Count() > 75 && lang.Key != null && lang.Key != "UN_NotReferenced"
-                          select new PieChartModel() { Category = lang.Key, Number = lang.Count() };
-                Data.Clear();
-                foreach (PieChartModel chart in res)
-                {
-                    Data.Add(chart);
-                }
+                    where lang.Key != null && lang.Key != "UN_NotReferenced"
+                    select new { Language = lang, Count = lang.Count() };
+
+                double sum = (from all in first select all.Count).Sum();
+
+
+                var highCount = from entry in first
+                    where entry.Count >= sum * factor
+                    select new PieChartModel() { Category = entry.Language.Key, Number = entry.Language.Count() };
+
+
+                var lowCount =
+                    first.Select(
+                        x =>
+                            new PieChartModel() {
+                                Category = "Other",
+                                Number = first.Where(y => y.Count < sum * factor).Sum(z => z.Count)
+                            });
+
+                var res = highCount.Concat(lowCount);
+                
+                Data = new ObservableCollection<PieChartModel>(res);
+                OnPropertyChanged(nameof(Data));
             }
 
         }
