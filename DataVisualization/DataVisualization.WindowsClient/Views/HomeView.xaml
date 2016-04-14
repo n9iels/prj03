@@ -37,8 +37,10 @@
         <Grid Grid.Row="3" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Gauge Graph" Command="{Binding DataContext.DisplayGaugeCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
+        <!--
         <Grid Grid.Row="4" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Exit" Command="{Binding DataContext.CloseApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
+        -->
     </Grid>
 </UserControl>
