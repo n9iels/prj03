@@ -24,7 +24,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
 
 
             _model = new PieChartModel {
-                CurrentChartCommand = RefreshPositivity //RefreshLanguages
+                CurrentChartCommand = RefreshLanguages
             };
             RefreshCommand.Execute(null);
         }

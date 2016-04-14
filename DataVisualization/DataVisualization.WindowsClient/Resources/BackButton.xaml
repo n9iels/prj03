@@ -6,18 +6,18 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="Foreground" Value="#000000" />
+        <Setter Property="Foreground" Value="#9B9292" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <ControlTemplate.Triggers>
                         <Trigger Property="Button.IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="#ff4888fc" />
+                            <Setter Property="Foreground" Value="#4888fc" />
                         </Trigger>
                     </ControlTemplate.Triggers>
 
-                    <Grid Grid.Column="2" Cursor="Hand">
+                    <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
@@ -27,10 +27,12 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
-                            <Path Stretch="Uniform" Data="M382.688,182.686H59.116l77.209-77.214c6.764-6.76,6.764-17.726,0-24.485c-6.764-6.764-17.73-6.764-24.484,0L5.073,187.757
+                            <Border Background="Transparent">
+                                <Path Stretch="Uniform" Data="M382.688,182.686H59.116l77.209-77.214c6.764-6.76,6.764-17.726,0-24.485c-6.764-6.764-17.73-6.764-24.484,0L5.073,187.757
 		c-6.764,6.76-6.764,17.727,0,24.485l106.768,106.775c3.381,3.383,7.812,5.072,12.242,5.072c4.43,0,8.861-1.689,12.242-5.072
 		c6.764-6.76,6.764-17.726,0-24.484l-77.209-77.218h323.572c9.562,0,17.316-7.753,17.316-17.315
 		C400.004,190.438,392.251,182.686,382.688,182.686z" Fill="{TemplateBinding Foreground}" Height="30" />
+                            </Border>
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10, 0" >
                             <TextBlock Name="ButtonText" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}">

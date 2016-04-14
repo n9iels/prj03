@@ -20,6 +20,7 @@
             <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="InnerRadiusRatio" Value="0.60" />
+                <Setter Property="Foreground" Value="#9B9292" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -42,7 +43,8 @@
                         SeriesTitle="Data"
                         DisplayMember="Category"
                         ValueMember="Number"
-                        ItemsSource="{Binding Path=ChartData}" />
+                        ItemsSource="{Binding Path=ChartData}"
+                        Foreground="#9B9292" />
                 </chart:PieChart.Series>
             </chart:DoughnutChart>
         </Grid>

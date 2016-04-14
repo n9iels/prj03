@@ -30,10 +30,7 @@
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Row="0" Grid.Column="0">
-            <sparrow:SparrowChart Margin="20" FontSize="14">
-                <sparrow:SparrowChart.DataContext>
-                    <vm:LineGraphViewModel />
-                </sparrow:SparrowChart.DataContext>
+            <sparrow:SparrowChart Margin="20" FontSize="14" Background="#333333" Foreground="#9B9292">
                 <sparrow:SparrowChart.XAxis>
                     <sparrow:DateTimeXAxis StringFormat="ddd dd MMM yyyy" Header="Date" />
                 </sparrow:SparrowChart.XAxis>
@@ -41,7 +38,7 @@
                     <sparrow:LinearYAxis Name="Temperature" Header="Temperature in °C" MinValue="0" />
                 </sparrow:SparrowChart.YAxis>
                 <sparrow:SparrowChart.Legend>
-                    <sparrow:Legend Header="Legend" LegendPosition="Inside" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="AliceBlue" Padding="5" Margin="10" Dock="Right"></sparrow:Legend>
+                    <sparrow:Legend Header="Legend" LegendPosition="Inside" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#686262" Foreground="#1D1414" Padding="5" Margin="10" Dock="Right"></sparrow:Legend>
                 </sparrow:SparrowChart.Legend>
                 <sparrow:SparrowChart.Series>
                     <sparrow:LineSeries Label="Temperature" PointsSource="{Binding Data}" XPath="Date" YPath="Temperature" />
