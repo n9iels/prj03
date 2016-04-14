@@ -7,17 +7,20 @@ using DataVisualization.Data.Models.BarChartModel;
 using DataVisualization.Windows;
 using System.Collections.ObjectModel;
 using MySql.Data.MySqlClient;
+using System.Windows.Data;
 
 namespace DataVisualization.WindowsClient.ViewModels
 {
     class BarChartViewModel : ViewModelBase
     {
         public ObservableCollection<BarChartModel> bier { get; private set; }
+        private object _lockObject = new object();
 
         public BarChartViewModel()
         {
             bier = new ObservableCollection<BarChartModel>();
-            UpdateChart();
+            BindingOperations.EnableCollectionSynchronization(bier, _lockObject);
+            new Task(UpdateChart).Start();
 
         }
 
@@ -49,83 +52,6 @@ namespace DataVisualization.WindowsClient.ViewModels
             }
             conn.Close();
             OnPropertyChanged(nameof(bier));
-
-
-
-            //           // Connect to the database
-            //+string connectionString = ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString;
-            //           +conn = new MySqlConnection(connectionString);
-            //           +conn.Open();
-            //           +
-            //           +            // Create SQL command
-            //           +MySqlCommand command = conn.CreateCommand();
-            //           +MySqlDataReader Reader;
-            //           +command.CommandText = "SELECT * FROM weather_condition";
-            //           +
-            //           +            // Read result
-            //           +Reader = command.ExecuteReader();
-            //           +            while (Reader.Read())
-            //               +            {
-            //               +Console.WriteLine(Reader.GetValue(1).ToString());
-            //               +            }
-            //           +conn.Close();
-
-            //using (ProjectEntities db = new ProjectEntities())
-            //{
-            //    //var daaat = (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).First();
-            //    //var shit = (from r in db.weather_condition select r.date);
-            //    //var first = from x in db.twitter_tweets
-            //    //            from r in db.weather_condition
-            //    //            from wt in db.weather_types
-            //    //            where r.id == wt.id
-            //    //            where r.date == (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).FirstOrDefault()
-            //    //            group wt by wt.name
-            //    //            into tweets
-            //    //            select new BarChartModel { Positief = tweets.Key, Count = (from z in db.twitter_tweets select z.pindex).Average()};
-
-
-
-            //    //var allp = (from x in db.twitter_tweets
-            //    //            from r in db.weather_condition
-            //    //            from wt in db.weather_types
-            //    //            where r.id == wt.id
-            //    //            where r.date == (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).FirstOrDefault()
-            //    //            where x.pindex != 0
-            //    //            group wt by wt.name
-            //    //           into iets
-            //    //            select iets.Key);
-
-            //    //double allesp = allp.Count();
-
-
-            //    //int pos = (from x in db.twitter_tweets
-            //    //           where x.pindex != 0 && x.pindex > 0
-            //    //           select x).Count();
-
-            //    //int een = all / 100;
-
-            //    //double avg = pos / een;
-
-
-            //    //var first = from x in db.weather_types
-            //    //            select new BarChartModel { Count = avg, Positief = "algemeen" };
-
-
-            //    //SELECT wt.name AS Weather, AVG(tt.pindex) AS Average_Positivity
-            //    //FROM weather_condition AS wc, weather_types AS wt, twitter_tweets AS tt
-            //    //WHERE wc.id = wt.id
-            //    //AND wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1)
-            //    //GROUP BY wt.name
-
-
-
-
-            //    var first = from  x in db.twitter_places
-            //                select new BarChartModel { Count = 100, Positief = "Aids" };
-
-            //    bier = new ObservableCollection<BarChartModel>(all);
-            //    OnPropertyChanged(nameof(bier));
-            //}
         }
     }
 }
