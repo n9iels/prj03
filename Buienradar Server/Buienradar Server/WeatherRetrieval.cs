@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Buienradar_Server
 {
-    class WeatherRetrieval
+    public class WeatherRetrieval
     {
         public static XDocument GetData (string url)
         {

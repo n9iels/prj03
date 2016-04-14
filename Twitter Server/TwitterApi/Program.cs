@@ -10,8 +10,12 @@ namespace TwitterApi {
 
     internal class Program {
 
-        private static void Main(string[] args) {
+        private static void Main() {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+
+            // SOLID
+            // [D]ependency inversion principle.
 
             TwitterStream stream = new TwitterStream(
                 new TweetQueue(

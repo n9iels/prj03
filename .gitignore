@@ -289,3 +289,7 @@ paket-files/
 
 # PowerPoint temporary
 ~$*.ppt*
+Twitter Server/TwitterApi/Resources/Word Lists/Negative-Words-EN.txt
+Twitter Server/TwitterApi/Resources/Word Lists/Negative-Words-NL.txt
+Twitter Server/TwitterApi/Resources/Word Lists/Positive-Words-EN.txt
+Twitter Server/TwitterApi/Resources/Word Lists/Positive-Words-NL.txt

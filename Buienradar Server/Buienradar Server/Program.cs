@@ -10,8 +10,8 @@ using System.Globalization;
 
 namespace Buienradar_Server
 {
-    class Program
-    {
+    class Program {
+        private static string last = null;
         static void Main(string[] args)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
@@ -23,18 +23,23 @@ namespace Buienradar_Server
 
                     XDocument doc = WeatherRetrieval.GetData("http://xml.buienradar.nl");
                     Dictionary<string, string> data = XmlFilter.FilterData(doc, 6344);
-                    DatabaseParser.UploadToDatabase(data);
 
-                    // Console log
-                    Console.WriteLine("Weather updated " + data["datum"]);
+                    if (last == null || data["datum"] != last) {
+                        DatabaseParser.UploadToDatabase(data);
+                        last = data["datum"];
+
+                        // Console log
+                        Console.WriteLine("Weather updated " + data["datum"]);
+                    }
+  
                 }
                 catch (WebException)
                 {
                     Console.WriteLine("Unable to load XML Data");
                 }
 
-                // Wait 5 minutes
-                System.Threading.Thread.Sleep(5 * 1000 * 60);
+                // Wait 1 minute
+                Thread.Sleep(1 * 1000 * 60);
             }
         }
     }
