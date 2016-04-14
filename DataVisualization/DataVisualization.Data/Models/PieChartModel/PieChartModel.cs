@@ -1,7 +1,16 @@
-﻿namespace DataVisualization.Data.Models.PieChartModel {
-    public class PieChartModel {
-        public string Category { get; set; }
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-        public int Number { get; set; }
+namespace DataVisualization.Data.Models.PieChartModel {
+    public class PieChartModel {
+
+        public ObservableCollection<PieChartContent> ChartData { get; set; }
+        public object SelectedChartItem { get; set; } 
+
+        public Action CurrentChartCommand { get; set; }
     }
 }
