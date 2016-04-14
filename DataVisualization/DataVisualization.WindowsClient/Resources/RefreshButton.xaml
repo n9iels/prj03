@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Test_WPF_application.Resources">
 
-    <Style x:Key="BackButton" TargetType="Button">
+    <Style x:Key="RefreshButton" TargetType="Button">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="Light" />
@@ -28,10 +28,11 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
                             <Border Background="Transparent">
-                                <Path Stretch="Uniform" Data="M382.688,182.686H59.116l77.209-77.214c6.764-6.76,6.764-17.726,0-24.485c-6.764-6.764-17.73-6.764-24.484,0L5.073,187.757
-		c-6.764,6.76-6.764,17.727,0,24.485l106.768,106.775c3.381,3.383,7.812,5.072,12.242,5.072c4.43,0,8.861-1.689,12.242-5.072
-		c6.764-6.76,6.764-17.726,0-24.484l-77.209-77.218h323.572c9.562,0,17.316-7.753,17.316-17.315
-		C400.004,190.438,392.251,182.686,382.688,182.686z" Fill="{TemplateBinding Foreground}" Height="30" />
+                                <Path Stretch="Uniform" Data="M354.86,88.952c-11.975-18.584-27.145-34.707-44.706-47.731l38.952-39.139H235.742v113.91l52.964-53.219
+		c40.142,28.131,65.042,74.724,65.042,124.571c0,83.744-68.13,151.874-151.874,151.874v30c100.286,0,181.874-81.588,181.874-181.874
+		C383.748,152.305,373.759,118.282,354.86,88.952z M0,196.405c0,35.038,9.989,69.061,28.888,98.391c11.975,18.584,27.145,34.707,44.706,47.731l-38.952,39.139h113.365
+		v-113.91l-52.964,53.219C54.9,292.844,30,246.252,30,196.405c0-83.744,68.13-151.874,151.874-151.874v-30
+		C81.588,14.531,0,96.12,0,196.405z" Fill="{TemplateBinding Foreground}" Height="30" />
                             </Border>
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="10, 0" >

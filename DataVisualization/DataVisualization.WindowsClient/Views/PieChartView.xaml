@@ -15,11 +15,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="InnerRadiusRatio" Value="0.60" />
+                <Setter Property="Foreground" Value="#9B9292" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -29,11 +30,12 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
             <chart:DoughnutChart
                 Style="{StaticResource ChartStyle}"
+                SelectedItem="{Binding SelectedItem}"
                 ChartTitle="Languages"
                 ChartSubTitle="Chart with amount of tweets per language">
                 <chart:PieChart.Series>
@@ -41,18 +43,17 @@
                         SeriesTitle="Data"
                         DisplayMember="Category"
                         ValueMember="Number"
-                        ItemsSource="{Binding Path=Data}" />
+                        ItemsSource="{Binding Path=ChartData}"
+                        Foreground="#9B9292" />
                 </chart:PieChart.Series>
-                
             </chart:DoughnutChart>
         </Grid>
 
-    <Grid Grid.Row="0" Margin="0, 30, 0, 0" Grid.Column="1" VerticalAlignment="Top">
-        <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
-    </Grid>
-    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
-        <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}"/>
-        <Button Style="{StaticResource Button}" Content="Update" Command="{Binding UpdateCommand}" Margin="0,50,0,0"/>
-    </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
+            <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
+            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,50,0,0" />
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Languages" GroupName="Main" Margin="0,45,0,0" Command="{Binding LanguageSelectCommand}" IsChecked="True"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="0,10,0,0" Command="{Binding PositivitySelectCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="DataBeest"
         Icon="pack://application:,,,/Resources/beast.png"
-        Height="720" Width="1080">
+        Height="720" Width="1080"
+        Background="#333333">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -18,6 +19,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:PieChartViewModel}">
             <v:PieChartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LineGraphViewModel}">
+            <v:LineGraphView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
