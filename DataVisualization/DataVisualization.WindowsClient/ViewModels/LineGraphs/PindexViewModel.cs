@@ -1,8 +1,10 @@
 ﻿using DataVisualization.Data.Models.LineGraphModel.LineGraphs;
 using DataVisualization.Windows;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +23,27 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
 
         public void RefreshChart()
         {
-            using (ProjectEntities db = new ProjectEntities())
-            {
-                var res = from wc in db.weather_condition
-                          join tt in db.twitter_tweets on wc.date equals (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).FirstOrDefault()
-                          group wc by wc.temperaturegc into conditions
-                          select new PindexModel() { Temperature = conditions.Average(c => c.temperaturegc), Pindex = tt.pindex};
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString);
+            conn.Open();
 
-                Data = new ObservableCollection<PindexModel>(res);
-                OnPropertyChanged(nameof(Data));
+            // Create SQL command
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT AVG(tt.pindex), wc.temperaturegc FROM weather_condition AS wc, twitter_tweets AS tt WHERE wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1) GROUP BY wc.temperaturegc";
+
+            Data = new ObservableCollection<PindexModel>();
+
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Data.Add(new PindexModel { Temperature = reader.GetDouble(1), Pindex = reader.GetDouble(0) });
+                }
             }
+
+            OnPropertyChanged(nameof(Data));
+
+            // Close database after execution
+            conn.Close();
         }
 
         public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
