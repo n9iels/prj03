@@ -97,7 +97,11 @@
     <Compile Include="twitter_tweets.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\LineGraphs\TemperatureViewModel.cs" />
     <Compile Include="ViewModels\LineGraphViewModel.cs" />
+    <Compile Include="Views\LineGraphs\TemperatureGraph.xaml.cs">
+      <DependentUpon>TemperatureGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LineGraphView.xaml.cs">
       <DependentUpon>LineGraphView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\RefreshButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LineGraphs\TemperatureGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

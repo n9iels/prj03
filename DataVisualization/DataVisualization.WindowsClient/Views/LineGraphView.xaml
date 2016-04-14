@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
+             xmlns:gvm="clr-namespace:DataVisualization.WindowsClient.ViewModels.LineGraphs"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
-             xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+             xmlns:gv="clr-namespace:DataVisualization.WindowsClient.Views.LineGraphs"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.DataContext>
@@ -18,6 +19,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type gvm:TemperatureViewModel}">
+                <gv:TemperatureGraph/>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -28,29 +32,14 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0">
-            <sparrow:SparrowChart Margin="20" FontSize="14" Background="#333333" Foreground="#9B9292">
-                <sparrow:SparrowChart.XAxis>
-                    <sparrow:DateTimeXAxis StringFormat="ddd dd MMM yyyy" Header="Date" />
-                </sparrow:SparrowChart.XAxis>
-                <sparrow:SparrowChart.YAxis>
-                    <sparrow:LinearYAxis Name="Temperature" Header="Temperature in °C" MinValue="0" />
-                </sparrow:SparrowChart.YAxis>
-                <sparrow:SparrowChart.Legend>
-                    <sparrow:Legend Header="Legend" LegendPosition="Inside" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#686262" Foreground="#1D1414" Padding="5" Margin="10" Dock="Right"></sparrow:Legend>
-                </sparrow:SparrowChart.Legend>
-                <sparrow:SparrowChart.Series>
-                    <sparrow:LineSeries Label="Temperature" PointsSource="{Binding Data}" XPath="Date" YPath="Temperature" />
-                </sparrow:SparrowChart.Series>
-            </sparrow:SparrowChart>
-        </Grid>
+        
+        <ContentControl Content="{Binding CurrentGraph}"/>
 
         <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
             <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,50,0,0" />
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Average temperature" GroupName="Main" Margin="0,45,0,0" Command="{Binding TemperatureCommand}" IsChecked="True"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Temperature vs Pindex" GroupName="Main" Margin="0,10,0,0" Command="{Binding PindexCommand}"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Average temperature" GroupName="Main" Margin="0,45,0,0" Command="{Binding SelectTemperatureCommand}" IsChecked="True"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Temperature vs Pindex" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectPindexCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

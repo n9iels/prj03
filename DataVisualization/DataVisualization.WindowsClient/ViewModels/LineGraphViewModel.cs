@@ -7,31 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DataVisualization.WindowsClient.ViewModels.LineGraphs;
 
 namespace DataVisualization.WindowsClient.ViewModels
 {
     public class LineGraphViewModel : ViewModelBase
     {
-        public ObservableCollection<LineGraphModel> Data { get; private set; }
+        private readonly LineGraphModel _model;
 
         public LineGraphViewModel()
         {
-            RefreshCommand.Execute(null);
+            _model = new LineGraphModel();
+            SelectTemperatureCommand.Execute(null);
         }
 
-        public void RefreshChart()
+        public ViewModelBase CurrentGraph
         {
-            using (ProjectEntities db = new ProjectEntities())
+            get { return _model.CurrentGraph; }
+            set
             {
-                var res = from wc in db.weather_condition
-                            group wc by wc.date into conditions
-                            select new LineGraphModel() { Temperature = conditions.Average(c => c.temperaturegc), Date = conditions.Key };
-
-                Data = new ObservableCollection<LineGraphModel>(res);
-                OnPropertyChanged(nameof(Data));
+                _model.CurrentGraph = value;
+                OnPropertyChanged();
             }
         }
 
-        public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
+        public ICommand SelectTemperatureCommand => new DelegateCommand(x => CurrentGraph = new TemperatureViewModel());
     }
 }
