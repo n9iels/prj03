@@ -36,8 +36,8 @@
         <Grid Grid.Row="0" Grid.Column="0">
             <chart:RadialGaugeChart
                 Style="{StaticResource ChartStyle}"
-                ChartSubTitle="Tweets per dag in positief en negatief"
-                ChartTitle="Tweets per dag">
+                ChartSubTitle="Percentage of positive tweets for all types of weather"
+                ChartTitle="Tweets per type of weather">
                 <chart:RadialGaugeChart.Series>
                     <chart:ChartSeries
                         SeriesTitle="Weertypes"
