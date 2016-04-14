@@ -25,8 +25,33 @@ namespace DataVisualization.WindowsClient.ViewModels
 
             using (ProjectEntities db = new ProjectEntities())
             {
+                //var daaat = (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).First();
+                //var shit = (from r in db.weather_condition select r.date);
+                //var first = from x in db.twitter_tweets
+                //            from r in db.weather_condition
+                //            from wt in db.weather_types
+                //            where r.id == wt.id
+                //            where r.date == (from r in db.weather_condition from x in db.twitter_tweets where r.date < x.created_at orderby r.date descending select r.date).FirstOrDefault()
+                //            group wt by wt.name
+                //            into tweets
+                //            select new BarChartModel { Positief = tweets.Key, Count = (from z in db.twitter_tweets select z.pindex).Average()};
+                
+                int all = (from x in db.twitter_tweets
+                           where x.pindex != 0
+                           select x).Count();
+
+                int pos = (from x in db.twitter_tweets
+                           where x.pindex != 0 && x.pindex > 0
+                           select x).Count();
+
+                int een = all / 100;
+
+                double avg = pos / een;
+
+
                 var first = from x in db.weather_types
-                            select new BarChartModel { Count = 69, Positief = x.name };
+                            select new BarChartModel { Count = avg, Positief = "algemeen" };
+
 
                 //SELECT wt.name AS Weather, AVG(tt.pindex) AS Average_Positivity
                 //FROM weather_condition AS wc, weather_types AS wt, twitter_tweets AS tt
