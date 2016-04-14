@@ -52,12 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
-    <Compile Include="Models\PieChartModel\PieChartModel.cs" />
-=======
     <Compile Include="Models\PieChartModel\PieChartContent.cs" />
->>>>>>> 7a6e812ab61df4db15483d1df9a0692702fa918e
     <Compile Include="Models\MainModel\MainModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
