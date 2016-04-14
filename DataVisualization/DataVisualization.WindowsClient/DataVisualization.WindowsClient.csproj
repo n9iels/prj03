@@ -97,6 +97,10 @@
     <Compile Include="twitter_tweets.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\GaugeChartViewModel.cs" />
+    <Compile Include="Views\GaugeChartView.xaml.cs">
+      <DependentUpon>GaugeChartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\LineGraphs\PindexViewModel.cs" />
     <Compile Include="ViewModels\LineGraphs\TemperatureViewModel.cs" />
     <Compile Include="ViewModels\LineGraphViewModel.cs" />
@@ -122,6 +126,9 @@
     <Page Include="Resources\BackButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GaugeChartView.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\RefreshButton.xaml">
       <SubType>Designer</SubType>
