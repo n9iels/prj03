@@ -87,7 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data Processors\Helpers\ITweetProcessor.cs" />
+    <Compile Include="Data Processors\Helpers\IDataProcessor.cs" />
     <Compile Include="Data Processors\MatchFinder\Helpers\IMatchFinder.cs" />
     <Compile Include="Data Processors\MatchFinder\TxtNewLineMatchFinder.cs" />
     <Compile Include="Data Processors\MySqlQueryGenerator.cs" />
@@ -115,6 +115,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Word Lists\Negative-Words-EN.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Word Lists\Negative-Words-NL.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Word Lists\Positive-Words-EN.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Word Lists\Positive-Words-NL.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
