@@ -38,7 +38,7 @@
                     <sparrow:DateTimeXAxis StringFormat="ddd dd MMM yyyy" Header="Date" />
                 </sparrow:SparrowChart.XAxis>
                 <sparrow:SparrowChart.YAxis>
-                    <sparrow:LinearYAxis Name="Temperature" Header="Temperature in °C" />
+                    <sparrow:LinearYAxis Name="Temperature" Header="Temperature in °C" MinValue="0" />
                 </sparrow:SparrowChart.YAxis>
                 <sparrow:SparrowChart.Legend>
                     <sparrow:Legend Header="Legend" LegendPosition="Inside" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="AliceBlue" Padding="5" Margin="10" Dock="Right"></sparrow:Legend>
