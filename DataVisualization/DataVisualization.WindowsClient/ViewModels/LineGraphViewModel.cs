@@ -32,5 +32,6 @@ namespace DataVisualization.WindowsClient.ViewModels
         }
 
         public ICommand SelectTemperatureCommand => new DelegateCommand(x => CurrentGraph = new TemperatureViewModel());
+        public ICommand SelectPindexCommand => new DelegateCommand(x => CurrentGraph = new PindexViewModel());
     }
 }

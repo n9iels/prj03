@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartContent.cs" />
     <Compile Include="Models\MainModel\MainModel.cs" />

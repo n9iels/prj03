@@ -22,6 +22,9 @@
             <DataTemplate DataType="{x:Type gvm:TemperatureViewModel}">
                 <gv:TemperatureGraph/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type gvm:PindexViewModel}">
+                <gv:PindexGraph/>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
