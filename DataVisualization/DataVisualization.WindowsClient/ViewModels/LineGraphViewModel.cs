@@ -16,7 +16,6 @@ namespace DataVisualization.WindowsClient.ViewModels
 
         public LineGraphViewModel()
         {
-            Data = new ObservableCollection<LineGraphModel>();
             RefreshCommand.Execute(null);
         }
 

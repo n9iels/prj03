@@ -10,5 +10,6 @@ namespace DataVisualization.Data.Models.LineGraphModel
     {
         public double Temperature { get; set; }
         public DateTime Date { get; set; }
+        public double Pindex { get; set; }
     }
 }
