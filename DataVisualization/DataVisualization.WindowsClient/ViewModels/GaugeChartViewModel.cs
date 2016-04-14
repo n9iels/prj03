@@ -8,23 +8,23 @@ using DataVisualization.Windows;
 using System.Collections.ObjectModel;
 using MySql.Data.MySqlClient;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace DataVisualization.WindowsClient.ViewModels
 {
-    class BarChartViewModel : ViewModelBase
+    class GaugeChartViewModel : ViewModelBase
     {
         public ObservableCollection<BarChartModel> bier { get; private set; }
         private object _lockObject = new object();
 
-        public BarChartViewModel()
+        public GaugeChartViewModel()
         {
             bier = new ObservableCollection<BarChartModel>();
             BindingOperations.EnableCollectionSynchronization(bier, _lockObject);
-            new Task(UpdateChart).Start();
-
+            RefreshCommand.Execute(null);
         }
 
-        public void UpdateChart()
+        public void RefreshChart()
         {
             List<double> alles = new List<double>();
             int hallo = 0;
@@ -53,5 +53,7 @@ namespace DataVisualization.WindowsClient.ViewModels
             conn.Close();
             OnPropertyChanged(nameof(bier));
         }
+
+        public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
     }
 }

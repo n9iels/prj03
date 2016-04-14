@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DataVisualization.WindowsClient.Views
+namespace DataVisualization.WindowsClient.Views.LineGraphs
 {
     /// <summary>
-    /// Interaction logic for BarChartView.xaml
+    /// Interaction logic for PindexGraph.xaml
     /// </summary>
-    public partial class BarChartView : UserControl
+    public partial class PindexGraph : UserControl
     {
-        public BarChartView()
+        public PindexGraph()
         {
             InitializeComponent();
         }

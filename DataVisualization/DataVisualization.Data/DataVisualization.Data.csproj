@@ -54,6 +54,10 @@
   <ItemGroup>
     <Compile Include="Models\BarChartModel\BarChartModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureModel.cs" />
+    <Compile Include="Models\PieChartModel\PieChartContent.cs" />
     <Compile Include="Models\MainModel\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

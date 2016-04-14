@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.LineGraphs.PindexGraph"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views.LineGraphs"
+             xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <sparrow:SparrowChart Margin="20" FontSize="14" Background="#333333" Foreground="#9B9292">
+            <sparrow:SparrowChart.XAxis>
+                <sparrow:LinearXAxis Header="Temperature in °C" />
+            </sparrow:SparrowChart.XAxis>
+            <sparrow:SparrowChart.YAxis>
+                <sparrow:LinearYAxis Header="P-Index" />
+            </sparrow:SparrowChart.YAxis>
+            <sparrow:SparrowChart.Legend>
+                <sparrow:Legend Header="Legend" LegendPosition="Inside" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#686262" Foreground="#1D1414" Padding="5" Margin="10" Dock="Right"></sparrow:Legend>
+            </sparrow:SparrowChart.Legend>
+            <sparrow:SparrowChart.Series>
+                <sparrow:LineSeries Label="P-Index" PointsSource="{Binding Data}" XPath="Temperature" YPath="Pindex" />
+            </sparrow:SparrowChart.Series>
+        </sparrow:SparrowChart>
+    </Grid>
+</UserControl>

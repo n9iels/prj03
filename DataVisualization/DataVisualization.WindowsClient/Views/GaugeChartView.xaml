@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.PieChartView"
+﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.GaugeChartView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.DataContext>
-        <vm:PieChartViewModel/>
+        <vm:GaugeChartViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,9 +18,8 @@
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
+            <Style x:Key="ChartStyle" TargetType="chart:RadialGaugeChart">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="InnerRadiusRatio" Value="0.60" />
                 <Setter Property="Foreground" Value="#9B9292" />
             </Style>
         </ResourceDictionary>
@@ -32,28 +32,25 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
+        
         <Grid Grid.Row="0" Grid.Column="0">
-            <chart:DoughnutChart
+            <chart:RadialGaugeChart
                 Style="{StaticResource ChartStyle}"
-                SelectedItem="{Binding SelectedItem}"
-                ChartTitle="Languages"
-                ChartSubTitle="Chart with amount of tweets per language">
-                <chart:PieChart.Series>
+                ChartSubTitle="Tweets per dag in positief en negatief"
+                ChartTitle="Tweets per dag">
+                <chart:RadialGaugeChart.Series>
                     <chart:ChartSeries
-                        SeriesTitle="Data"
-                        DisplayMember="Category"
-                        ValueMember="Number"
-                        ItemsSource="{Binding Path=ChartData}"
-                        Foreground="#9B9292" />
-                </chart:PieChart.Series>
-            </chart:DoughnutChart>
+                        SeriesTitle="Weertypes"
+                        DisplayMember="Positief"
+                        ValueMember="Count" 
+                        ItemsSource="{Binding Path=bier}"/>
+                </chart:RadialGaugeChart.Series>
+            </chart:RadialGaugeChart>
         </Grid>
 
         <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
             <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,50,0,0" />
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Languages" GroupName="Main" Margin="0,45,0,0" Command="{Binding LanguageSelectCommand}" IsChecked="True"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="0,10,0,0" Command="{Binding PositivitySelectCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
