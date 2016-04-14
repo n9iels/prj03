@@ -22,6 +22,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
         }
 
         public ICommand DisplayHomeCommand => new DelegateCommand(x => CurrentView = new HomeViewModel());
+        public ICommand DisplayGaugeCommand => new DelegateCommand(x => CurrentView = new GaugeChartViewModel());
         public ICommand DisplayGraphCommand => new DelegateCommand(x => CurrentView = new PieChartViewModel());
         public ICommand DisplayLineGraphCommand => new DelegateCommand(x => CurrentView = new LineGraphViewModel());
 
