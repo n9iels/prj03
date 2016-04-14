@@ -21,8 +21,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <chart:ClusteredColumnChart ChartSubTitle="Tweets per dag in positief en negatief" ChartTitle="Tweets per dag">
-            <chart:ClusteredColumnChart.Series>
+        <chart:RadialGaugeChart ChartSubTitle="Tweets per dag in positief en negatief" ChartTitle="Tweets per dag">
+            <chart:RadialGaugeChart.Series>
                 <chart:ChartSeries 
                         SeriesTitle="Weertypes"
                         DisplayMember="Positief"
@@ -30,7 +30,7 @@
                         ItemsSource="{Binding Path=bier}"/>
               
 
-            </chart:ClusteredColumnChart.Series>
-        </chart:ClusteredColumnChart>
+            </chart:RadialGaugeChart.Series>
+        </chart:RadialGaugeChart>
     </Grid>
 </UserControl>
