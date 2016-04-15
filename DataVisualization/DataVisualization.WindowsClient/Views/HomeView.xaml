@@ -20,6 +20,7 @@
             <RowDefinition Height="70" />
             <RowDefinition Height="70" />
             <RowDefinition Height="70" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -36,6 +37,9 @@
         </Grid>
         <Grid Grid.Row="3" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Gauge Graph" Command="{Binding DataContext.DisplayGaugeCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+        </Grid>
+        <Grid Grid.Row="4" VerticalAlignment="Center">
+            <Button Style="{StaticResource Button}" Content="Histogram" Command="{Binding DataContext.DisplayHistogramCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <!--
         <Grid Grid.Row="4" VerticalAlignment="Center">

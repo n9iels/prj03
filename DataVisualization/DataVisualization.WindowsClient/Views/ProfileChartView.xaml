@@ -33,16 +33,17 @@
             <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
-
-            <chart:ClusteredColumnChart ChartSubTitle="Twitter users with the most tweets" ChartTitle="Users with the most tweets" Style="{StaticResource ChartStyle}" >
+            <chart:ClusteredColumnChart
+                Margin="20"
+                ChartSubTitle="Twitter users with the most tweets"
+                ChartTitle="Users with the most tweets"
+                Style="{StaticResource ChartStyle}">
                 <chart:ClusteredColumnChart.Series>
                     <chart:ChartSeries
                         DisplayMember="name"
-                                 
-                           ItemsSource="{Binding Path=profiles}"
-                           SeriesTitle="Users"
-                           ValueMember="tweets" />
-
+                        ItemsSource="{Binding Path=profiles}"
+                        SeriesTitle="Users"
+                        ValueMember="tweets" />
                 </chart:ClusteredColumnChart.Series>
             </chart:ClusteredColumnChart>
         </Grid>
