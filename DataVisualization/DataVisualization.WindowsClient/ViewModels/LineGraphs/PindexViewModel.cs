@@ -9,12 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
 {
     class PindexViewModel : ViewModelBase
     {
         public ObservableCollection<PindexModel> Data { get; private set; }
+
+        public ObservableCollection<PindexModel> Average { get; private set; }
 
         public PindexViewModel()
         {
@@ -26,21 +29,41 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
             MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString);
             conn.Open();
 
-            // Create SQL command
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT AVG(tt.pindex), wc.temperaturegc FROM weather_condition AS wc, twitter_tweets AS tt WHERE wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1) GROUP BY wc.temperaturegc";
+            // Create SQL commands
+            MySqlCommand command1 = conn.CreateCommand();
+            command1.CommandText = "SELECT AVG(tt.pindex), wc.temperaturegc FROM weather_condition AS wc, twitter_tweets AS tt WHERE wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1) GROUP BY wc.temperaturegc;";
 
-            Data = new ObservableCollection<PindexModel>();
+            MySqlCommand command2 = conn.CreateCommand();
+            command2.CommandText = "SELECT AVG(pindex) FROM twitter_tweets";
 
-            using (MySqlDataReader reader = command.ExecuteReader())
+            // Create lists and vars
+            Data    = new ObservableCollection<PindexModel>();
+            Average = new ObservableCollection<PindexModel>();
+            List<double> Temperatures = new List<double>();
+
+            // Execute command1
+            using (MySqlDataReader reader = command1.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Data.Add(new PindexModel { Temperature = reader.GetDouble(1), Pindex = reader.GetDouble(0) });
+                    Data.Add(new PindexModel { Temperature = reader.GetDouble(1), Pindex = (double)reader.GetDecimal(0) });
+                    Temperatures.Add(reader.GetDouble(1));
                 }
+            }
+            conn.Close();
+
+            // Execute command2
+            conn.Open();
+
+            double result = double.Parse(command2.ExecuteScalar().ToString());
+
+            for (int i = 0; i < Temperatures.Count; i++)
+            {
+                Average.Add(new PindexModel { Temperature = Temperatures.ElementAt(i), Pindex = result });
             }
 
             OnPropertyChanged(nameof(Data));
+            OnPropertyChanged(nameof(Average));
 
             // Close database after execution
             conn.Close();

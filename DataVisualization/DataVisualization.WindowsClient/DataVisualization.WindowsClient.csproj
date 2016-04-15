@@ -99,6 +99,8 @@
     </Compile>
     <Compile Include="ViewModels\GaugeChartViewModel.cs" />
     <Compile Include="ViewModels\ProfileChartViewModel.cs" />
+    <Compile Include="ViewModels\PieCharts\LanguageViewModel.cs" />
+    <Compile Include="ViewModels\PieCharts\PositivityViewModal.cs" />
     <Compile Include="Views\GaugeChartView.xaml.cs">
       <DependentUpon>GaugeChartView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +118,12 @@
     </Compile>
     <Compile Include="Views\ProfileChartView.xaml.cs">
       <DependentUpon>ProfileChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PieCharts\LanguageChart.xaml.cs">
+      <DependentUpon>LanguageChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PieCharts\PositivityChart.xaml.cs">
+      <DependentUpon>PositivityChart.xaml</DependentUpon>
     </Compile>
     <Compile Include="weather_condition.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -147,6 +155,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LineGraphView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PieCharts\LanguageChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PieCharts\PositivityChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,6 +278,7 @@
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
