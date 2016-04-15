@@ -98,6 +98,7 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GaugeChartViewModel.cs" />
+    <Compile Include="ViewModels\ProfileChartViewModel.cs" />
     <Compile Include="Views\GaugeChartView.xaml.cs">
       <DependentUpon>GaugeChartView.xaml</DependentUpon>
     </Compile>
@@ -112,6 +113,9 @@
     </Compile>
     <Compile Include="Views\LineGraphView.xaml.cs">
       <DependentUpon>LineGraphView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfileChartView.xaml.cs">
+      <DependentUpon>ProfileChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="weather_condition.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
@@ -185,6 +189,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ProfileChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

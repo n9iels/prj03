@@ -59,6 +59,7 @@
     <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartContent.cs" />
     <Compile Include="Models\MainModel\MainModel.cs" />
+    <Compile Include="Models\ProfileChartModel\ProfileChartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
