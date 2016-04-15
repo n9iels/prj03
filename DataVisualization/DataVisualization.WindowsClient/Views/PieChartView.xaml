@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
+             xmlns:gvm="clr-namespace:DataVisualization.WindowsClient.ViewModels.PieCharts"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+             xmlns:gv="clr-namespace:DataVisualization.WindowsClient.Views.PieCharts"
              xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1080">
@@ -17,11 +20,12 @@
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="InnerRadiusRatio" Value="0.60" />
-                <Setter Property="Foreground" Value="#9B9292" />
-            </Style>
+            <DataTemplate DataType="{x:Type gvm:LanguageViewModel}">
+                <gv:LanguageChart />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type gvm:PositivityViewModal}">
+                <gv:PositivityChart />
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -33,27 +37,14 @@
             <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <chart:DoughnutChart
-                Style="{StaticResource ChartStyle}"
-                SelectedItem="{Binding SelectedItem}"
-                ChartTitle="Languages"
-                ChartSubTitle="Chart with amount of tweets per language">
-                <chart:PieChart.Series>
-                    <chart:ChartSeries
-                        SeriesTitle="Data"
-                        DisplayMember="Category"
-                        ValueMember="Number"
-                        ItemsSource="{Binding Path=ChartData}"
-                        Foreground="#9B9292" />
-                </chart:PieChart.Series>
-            </chart:DoughnutChart>
+            <ContentControl Content="{Binding CurrentGraph}"/>
         </Grid>
 
         <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
-            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding RefreshCommand}" Margin="0,50,0,0" />
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Languages" GroupName="Main" Margin="0,45,0,0" Command="{Binding LanguageSelectCommand}" IsChecked="True"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="0,10,0,0" Command="{Binding PositivitySelectCommand}"/>
+            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding CurrentGraph.RefreshCommand}" Margin="0,50,0,0" />
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Languages" GroupName="Main" Margin="0,45,0,0" Command="{Binding SelectLanguageCommand}" IsChecked="True"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectPositivityCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
