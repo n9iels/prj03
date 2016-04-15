@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.CodeDom;
+using System.Windows.Input;
 using DataVisualization.Data.Models.MainModel;
 using DataVisualization.Windows;
 
@@ -22,9 +23,11 @@ namespace DataVisualization.WindowsClient.ViewModels {
         }
 
         public ICommand DisplayHomeCommand => new DelegateCommand(x => CurrentView = new HomeViewModel());
-        public ICommand DisplayGaugeCommand => new DelegateCommand(x => CurrentView = new MapViewModel());
-        public ICommand DisplayGraphCommand => new DelegateCommand(x => CurrentView = new PieChartViewModel());
+        public ICommand DisplayPieChartCommand => new DelegateCommand(x => CurrentView = new PieChartViewModel());
+       
         public ICommand DisplayLineGraphCommand => new DelegateCommand(x => CurrentView = new LineGraphViewModel());
+        public ICommand DisplayGaugeChartCommand => new DelegateCommand(x => CurrentView = new GaugeChartViewModel());
+        public ICommand DisplayHeatmapCommand => new DelegateCommand(x => CurrentView = new MapViewModel());
 
         #endregion
     }
