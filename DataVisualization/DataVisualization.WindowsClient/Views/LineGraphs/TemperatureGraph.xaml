@@ -8,8 +8,16 @@
              xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
-    <Grid>
-        <sparrow:SparrowChart Margin="20" FontSize="14" Background="#333333" Foreground="#9B9292">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="45" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Padding="5, 0" FontSize="24" FontFamily="Segoe UI" FontWeight="Light" Foreground="#9B9292">Temperature VS Day</Label>
+        <Label  Grid.Row="1" Padding="5, 0" FontSize="14" FontFamily="Segoe UI" FontWeight="Light" Foreground="#9B9292">Graph that shows the temperature per day</Label>
+        <sparrow:SparrowChart Grid.Row="2" FontSize="14" Background="#333333" Foreground="#9B9292">
             <sparrow:SparrowChart.XAxis>
                 <sparrow:DateTimeXAxis StringFormat="ddd dd MMM yyyy" Header="Date" />
             </sparrow:SparrowChart.XAxis>
