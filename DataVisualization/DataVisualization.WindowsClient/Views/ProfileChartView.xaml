@@ -34,7 +34,6 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Grid.Row="0">
             <chart:ClusteredColumnChart
-                Margin="20"
                 ChartSubTitle="Twitter users with the most tweets"
                 ChartTitle="Users with the most tweets"
                 Style="{StaticResource ChartStyle}">
