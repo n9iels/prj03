@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.MapView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:client="http://schemas.esri.com/arcgis/client/2009"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignWidth="1080" d:DesignHeight="720">
+    <UserControl.DataContext>
+        <vm:MapViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <client:SimpleMarkerSymbol x:Key="TestResource"
+                                 Color="Red" Size="12" Style="Circle">
+            
+        </client:SimpleMarkerSymbol>
+    </UserControl.Resources>
+    <Grid>
+        <client:Map Name="EsriMap">
+            <client:ArcGISTiledMapServiceLayer
+                    Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+            <client:GraphicsLayer ID="GraphicsLayer"/>
+        </client:Map>
+    </Grid>
+</UserControl>

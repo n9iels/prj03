@@ -26,6 +26,9 @@
         <DataTemplate DataType="{x:Type vm:LineGraphViewModel}">
             <v:LineGraphView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MapViewModel}">
+            <v:MapView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.Background>
