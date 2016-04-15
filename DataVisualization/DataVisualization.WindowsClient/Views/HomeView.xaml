@@ -30,7 +30,7 @@
         </Grid>
         
         <Grid Grid.Row="1" VerticalAlignment="Center">
-            <Button Style="{StaticResource Button}" Content="Pie Charts" Command="{Binding DataContext.DisplayGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+            <Button Style="{StaticResource Button}" Content="Pie Charts" Command="{Binding DataContext.DisplayPieChartCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="2" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Line Graphs" Command="{Binding DataContext.DisplayLineGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
