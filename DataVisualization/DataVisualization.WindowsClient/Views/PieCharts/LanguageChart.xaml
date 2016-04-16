@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.PieCharts.LanguageChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataVisualization.WindowsClient.Views.PieCharts"
+             xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+             mc:Ignorable="d"
+             d:DesignHeight="720" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ChartStyle" TargetType="chart:DoughnutChart">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="InnerRadiusRatio" Value="0.60" />
+                <Setter Property="Foreground" Value="#9B9292" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <chart:DoughnutChart
+                Style="{StaticResource ChartStyle}"
+                SelectedItem="{Binding SelectedItem}"
+                ChartTitle="Languages"
+                ChartSubTitle="Chart with amount of tweets per language">
+            <chart:PieChart.Series>
+                <chart:ChartSeries
+                        SeriesTitle="Data"
+                        DisplayMember="Category"
+                        ValueMember="Number"
+                        ItemsSource="{Binding Path=Data}"
+                        Foreground="#9B9292" />
+            </chart:PieChart.Series>
+        </chart:DoughnutChart>
+    </Grid>
+</UserControl>

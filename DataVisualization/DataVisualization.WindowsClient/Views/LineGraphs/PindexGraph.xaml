@@ -16,8 +16,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <sparrow:SparrowChart Margin="20" FontSize="14" Background="#333333" Foreground="#9B9292">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="45" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Padding="5, 0" FontSize="24" FontFamily="Segoe UI" FontWeight="Light" Foreground="#9B9292">Positivity VS Temperature</Label>
+        <Label  Grid.Row="1" Padding="5, 0" FontSize="14" FontFamily="Segoe UI" FontWeight="Light" Foreground="#9B9292">Graph that shows the positivity per temperature</Label>
+        <sparrow:SparrowChart  Grid.Row="2" FontSize="14" Background="#333333" Foreground="#9B9292">
             <sparrow:SparrowChart.XAxis>
                 <sparrow:LinearXAxis Header="Temperature in °C" />
             </sparrow:SparrowChart.XAxis>
@@ -29,6 +37,7 @@
             </sparrow:SparrowChart.Legend>
             <sparrow:SparrowChart.Series>
                 <sparrow:LineSeries Label="P-Index" PointsSource="{Binding Data}" XPath="Temperature" YPath="Pindex" />
+                <sparrow:LineSeries Label="Average P-Index" PointsSource="{Binding Average}" XPath="Temperature" YPath="Pindex" />
             </sparrow:SparrowChart.Series>
         </sparrow:SparrowChart>
     </Grid>

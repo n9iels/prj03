@@ -26,7 +26,7 @@ namespace DataVisualization.WindowsClient.ViewModels.MapViewModels {
             set { Symbol.Color = value; }
         }
 
-        private const double MergetTreshold = 100.0;
+        private const double MergetTreshold = 250.0;
         private const double DefaultSize = 15;
 
         #region Constructors
