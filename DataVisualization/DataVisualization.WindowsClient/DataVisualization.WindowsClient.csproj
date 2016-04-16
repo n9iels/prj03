@@ -102,6 +102,8 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GaugeChartViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModels\ColorExtensions.cs" />
+    <Compile Include="ViewModels\MapViewModels\HeatPoint.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="Views\GaugeChartView.xaml.cs">
       <DependentUpon>GaugeChartView.xaml</DependentUpon>
