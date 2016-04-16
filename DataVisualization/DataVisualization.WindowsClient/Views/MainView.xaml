@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="DataBeest"
         Icon="pack://application:,,,/Resources/beast.png"
         Height="720" Width="1080"
-        Background="#333333">
+        Background="#333333" AllowsTransparency="True" WindowStyle="None"
+        ResizeMode="CanResizeWithGrip" Focusable="False">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -34,8 +36,59 @@
         <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/Resources/background.png" TileMode="FlipX" Stretch="Uniform" AlignmentY="Top" Viewport="0,0,81,81" ViewportUnits="Absolute"></ImageBrush>
         </Grid.Background>
-        <Grid Margin="40">
-            <ContentControl Content="{Binding CurrentView}" Focusable="False"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HorizontalAlignment="Stretch" Focusable="False">
+                <Border Background="#242424" Height="35">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding DragMoveCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Border>
+
+                <Button Height="35" Width="22" Margin="0,0,10,0" HorizontalAlignment="Right"
+                        Style="{StaticResource WindowsButtons}" Command="{Binding ExitCommand}">
+                    <Grid>
+                        <Rectangle IsHitTestVisible="False" Width="20" Height="2" Fill="#E8E8E8" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle IsHitTestVisible="False" Width="20" Height="2" Fill="#E8E8E8" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="45"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                    </Grid>
+                </Button>
+                <Button Height="35" Width="22" Margin="0,0,35,0" HorizontalAlignment="Right"
+                        Style="{StaticResource WindowsButtons}" Command="{Binding MaximizeCommand}">
+                    <Grid>
+                        <Rectangle Fill="#E8E8E8" Height="15" Width="15"/>
+                        <Rectangle Fill="#3B3B3B" Height="12" Width="12"/>
+                    </Grid>
+                </Button>
+                <Button Height="35" Width="22" Margin="0,0,60,0" HorizontalAlignment="Right"
+                    Style="{StaticResource WindowsButtons}" Command="{Binding MinimizeCommand}">
+                    <Rectangle Fill="#E8E8E8" Height="3" Width="15"/>
+                </Button>
+            </Grid>
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}" Focusable="False"/>
         </Grid>
     </Grid>
 </Window>
