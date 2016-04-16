@@ -22,6 +22,7 @@ namespace DataVisualization.WindowsClient.Views {
 
         private const double IntersectOffset = 1.0;
         private GraphicsLayer _graphicsLayer;
+        private List<HeatPoint> HeatPoints = new List<HeatPoint>(); 
 
         private readonly Geometry _rotterdamView = new Envelope(GetPoint(4.667061, 51.950285),
             GetPoint(4.325111, 51.854432));
@@ -33,52 +34,41 @@ namespace DataVisualization.WindowsClient.Views {
         }
         private void LoadedMap(object sender, EventArgs e) {
             EsriMap.ZoomTo(_rotterdamView);
-            //new Task(Async).Start();
-            MergeTest();
+            //new Task(MergeTest).Start();
+            Thread x = new Thread(new ThreadStart(MergeTest));
+            x.Start();
             return;
             GeometryService service = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 
         }
 
         private void MergeTest() {
-            Graphic[] graphics = {
-                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244201"), Symbol = CreateSymbol() },
-                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244215"), Symbol = CreateSymbol() },
-                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244235"), Symbol = CreateSymbol() },
-                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244245"), Symbol = CreateSymbol() },
-                 new Graphic() { Geometry = GetPoint("5.4777325", "51.9244245"), Symbol = CreateSymbol() }
-            };
-            foreach (var element in graphics) {
-                bool intersected = false;
-                for (int i = _graphicsLayer.Graphics.Count - 1; i >= 0; i--) {
-                    if (element == _graphicsLayer.Graphics[i]) continue;
-                    if (Intersects(element, _graphicsLayer.Graphics[i])) {
-                        intersected = true;
-                        SimpleMarkerSymbol targetSymbol = (SimpleMarkerSymbol)_graphicsLayer.Graphics[i].Symbol;
-                        targetSymbol.Size *= 1.3;
-                        SolidColorBrush brush = (SolidColorBrush) targetSymbol.Color;
-                        brush.Color = Color.FromArgb(brush.Color.A, (byte)(brush.Color.R + 55), brush.Color.G, (byte)(brush.Color.B - 15));
-                        Debug.WriteLine("Changed colour");
-                        break;
-                    }
-                }
-                if(!intersected)
-                    _graphicsLayer.Graphics.Add(element);
-            }
-            GeometryService service =
-                new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
-            Geometry x = service.Union(new List<Graphic>(graphics.Take(2)));
 
-            Symbol sm = new SimpleMarkerSymbol() {
-                Color = new SolidColorBrush(Color.FromArgb(60, 255,0,0)),
-                Size = 15,
-                Style = SimpleMarkerSymbol.SimpleMarkerStyle.Circle
+            Tuple<double, double>[] arr = {
+                Tuple.Create(4.4777325, 51.9244201),
+                Tuple.Create(4.4777325, 51.9244215),
+                Tuple.Create(4.4777325, 51.9244235),
+                Tuple.Create(4.4777325, 51.9244245),
             };
+
+            foreach (var element in arr) {
+                _graphicsLayer.Dispatcher.Invoke(() => {
+                    HeatPoint point = new HeatPoint(element.Item1, element.Item2);
+                    HeatPoint intersect = HeatPoints.FirstOrDefault(x => x.Intersects(point));
+                    if (intersect != null)
+                        intersect.Expand();
+                    else {
+                        _graphicsLayer.Graphics.Add(point.Graphic);
+                        HeatPoints.Add(point);
+                    }
+                });
+                Thread.Sleep(2500);
+            }
         }
 
 
         private void LiveMergeTest() {
-            using (ProjectEntities db = new ProjectEntities()) {
+            /*using (ProjectEntities db = new ProjectEntities()) {
                 var res = from x in db.twitter_tweets
                           where x.coordinates_lat != null && x.coordinates_lon != null
                           select new MapPointString() { LatString = x.coordinates_lat, LongString = x.coordinates_lon };
@@ -100,12 +90,12 @@ namespace DataVisualization.WindowsClient.Views {
                     }
                     if(!intersected)
                         lock (_graphicsLayer) {
-                            _graphicsLayer.Dispatcher.Invoke(() => { Add(element); });
+                            //_graphicsLayer.Dispatcher.Invoke(() => { Add(element); });
   
                         }
                     Thread.Sleep(500);
                 }
-            }
+            }*/
         }
 
         private static MapPoint GetPoint(string lon, string lat) {
@@ -117,30 +107,7 @@ namespace DataVisualization.WindowsClient.Views {
             return mp;
         }
 
-        private static bool Intersects(Graphic one, Graphic two) {
-            Envelope exOne = one.Geometry.Extent;
-            Envelope exTwo = two.Geometry.Extent;
-            if (exOne.XMax - IntersectOffset <= exTwo.XMax && exOne.XMax + IntersectOffset >= exTwo.XMax &&
-                exOne.YMax - IntersectOffset <= exTwo.YMax && exOne.YMax + IntersectOffset >= exTwo.YMax)
-                return true;
-            return false;
-        }
 
-        private void Async() {
-
-            using (ProjectEntities db = new ProjectEntities()) {
-                var res = from x in db.twitter_tweets
-                          where x.coordinates_lat != null && x.coordinates_lon != null
-                          select new MapPointString() { LatString = x.coordinates_lat, LongString = x.coordinates_lon };
-                foreach (var element in res) {
-                    lock (_graphicsLayer) {
-                        _graphicsLayer.Dispatcher.Invoke(() => { Add(element); });
-                        Thread.Sleep(750);
-                    }
-
-                }
-            }
-        }
 
         private Graphic CreateGraphic(MapPointString data) {
             return new Graphic() {
@@ -169,11 +136,18 @@ namespace DataVisualization.WindowsClient.Views {
     public class HeatPoint {
 
         public MapPoint Position { get; set; }
-        public Graphic Graphic { get; }
+        public Graphic Graphic { get; set; }
+        public SimpleMarkerSymbol Symbol => (SimpleMarkerSymbol) Graphic.Symbol;
+
+        public double Size { get; set; } = 1.0;
+
+        private const double MergetTreshold = 1.0;
+
+        #region Constructors
 
         public HeatPoint(double longtitude, double latitude) {
             WebMercator mec = new WebMercator();
-            Position = (MapPoint)mec.FromGeographic(new MapPoint(longtitude, latitude));
+            Position = (MapPoint) mec.FromGeographic(new MapPoint(longtitude, latitude));
             Graphic = new Graphic() {
                 Geometry = Position,
                 Symbol = new SimpleMarkerSymbol {
@@ -183,6 +157,24 @@ namespace DataVisualization.WindowsClient.Views {
                 }
             };
 
+        }
+        #endregion
+
+        public void Expand() { Expand(1.2); }
+
+        public void Expand(double factor) {
+            Symbol.Size *= 1.3;
+            SolidColorBrush brush = (SolidColorBrush)Symbol.Color;
+            brush.Color = Color.FromArgb(brush.Color.A, (byte)(brush.Color.R + 55), brush.Color.G,
+                (byte)(brush.Color.B - 15));
+            Size *= 1.2;
+        }
+
+        public bool Intersects(HeatPoint other) {
+            return Position.X - MergetTreshold * Size <= other.Position.X &&
+                   Position.X + MergetTreshold * Size >= other.Position.X &&
+                   this.Position.Y - MergetTreshold * Size <= other.Position.Y &&
+                   Position.Y + MergetTreshold * Size >= other.Position.Y;
         }
 
 
