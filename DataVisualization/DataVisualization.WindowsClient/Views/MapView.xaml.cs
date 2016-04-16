@@ -19,72 +19,94 @@ using Geometry = ESRI.ArcGIS.Client.Geometry.Geometry;
 
 namespace DataVisualization.WindowsClient.Views {
     public partial class MapView : UserControl {
+
+        private const double IntersectOffset = 1.0;
         private GraphicsLayer _graphicsLayer;
 
         private readonly Geometry _rotterdamView = new Envelope(GetPoint(4.667061, 51.950285),
             GetPoint(4.325111, 51.854432));
 
-        private static readonly Symbol sym = new SimpleMarkerSymbol() {
-            Color = new SolidColorBrush(Color.FromArgb(100, 63, 127, 191)),
-            Size = 15,
-            Style = SimpleMarkerSymbol.SimpleMarkerStyle.Circle
-        };
-
         public MapView() {
             InitializeComponent();
             _graphicsLayer = EsriMap.Layers["GraphicsLayer"] as GraphicsLayer;
-            EsriMap.Layers.LayersInitialized += Loaded;
+            EsriMap.Layers.LayersInitialized += LoadedMap;
         }
-        private void Loaded(object sender, EventArgs e) {
+        private void LoadedMap(object sender, EventArgs e) {
             EsriMap.ZoomTo(_rotterdamView);
-            new Task(Async).Start();
+            //new Task(Async).Start();
+            MergeTest();
             return;
+            GeometryService service = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 
-            Symbol sym = new SimpleMarkerSymbol() {
-                Color = new SolidColorBrush(Color.FromArgb(100, 63, 127, 191)),
+        }
+
+        private void MergeTest() {
+            Graphic[] graphics = {
+                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244201"), Symbol = CreateSymbol() },
+                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244215"), Symbol = CreateSymbol() },
+                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244235"), Symbol = CreateSymbol() },
+                new Graphic() { Geometry = GetPoint("4.4777325", "51.9244245"), Symbol = CreateSymbol() },
+                 new Graphic() { Geometry = GetPoint("5.4777325", "51.9244245"), Symbol = CreateSymbol() }
+            };
+            foreach (var element in graphics) {
+                bool intersected = false;
+                for (int i = _graphicsLayer.Graphics.Count - 1; i >= 0; i--) {
+                    if (element == _graphicsLayer.Graphics[i]) continue;
+                    if (Intersects(element, _graphicsLayer.Graphics[i])) {
+                        intersected = true;
+                        SimpleMarkerSymbol targetSymbol = (SimpleMarkerSymbol)_graphicsLayer.Graphics[i].Symbol;
+                        targetSymbol.Size *= 1.3;
+                        SolidColorBrush brush = (SolidColorBrush) targetSymbol.Color;
+                        brush.Color = Color.FromArgb(brush.Color.A, (byte)(brush.Color.R + 55), brush.Color.G, (byte)(brush.Color.B - 15));
+                        Debug.WriteLine("Changed colour");
+                        break;
+                    }
+                }
+                if(!intersected)
+                    _graphicsLayer.Graphics.Add(element);
+            }
+            GeometryService service =
+                new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+            Geometry x = service.Union(new List<Graphic>(graphics.Take(2)));
+
+            Symbol sm = new SimpleMarkerSymbol() {
+                Color = new SolidColorBrush(Color.FromArgb(60, 255,0,0)),
                 Size = 15,
                 Style = SimpleMarkerSymbol.SimpleMarkerStyle.Circle
             };
-
-            /*Graphic grx = new Graphic() {
-                Geometry = GetPoint("4.4777325", "51.9244201"),
-                Symbol = sym
-            };
-            Graphic grz = new Graphic() {
-                Geometry = GetPoint("4.4777325", "51.9244215"),
-                Symbol = sym
-            };
-
-            _graphicsLayer.Graphics.Add(grx);
-            _graphicsLayer.Graphics.Add(grz);
-
-            return;*/
-            using (ProjectEntities db = new ProjectEntities()) {
-                var res = from x in db.twitter_tweets
-                    where x.coordinates_lat != null && x.coordinates_lon != null
-                    select new { x.coordinates_lat, x.coordinates_lon };
-
-                foreach (var element in res) {
-                    Graphic gr = new Graphic() {
-                        Geometry = GetPoint(element.coordinates_lon, element.coordinates_lat),
-                        Symbol = sym
-                    };
-                        _graphicsLayer.Graphics.Add(gr);
-                }
-            }
-            GeometryService service = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
-
-
-            /*MapPoint point = GetPoint(4.5225615, 51.8550756);
-            point.SpatialReference = _graphicsLayer.SpatialReference;
-
-            _graphicsLayer.Graphics.Add(new Graphic() { 
-                Geometry = point,
-                Symbol = (Symbol)Resources["TestResource"]
-                
-            });*/
         }
 
+
+        private void LiveMergeTest() {
+            using (ProjectEntities db = new ProjectEntities()) {
+                var res = from x in db.twitter_tweets
+                          where x.coordinates_lat != null && x.coordinates_lon != null
+                          select new MapPointString() { LatString = x.coordinates_lat, LongString = x.coordinates_lon };
+                foreach (var element in res.Take(100)) {
+                    Graphic gr = CreateGraphic(element);
+                    bool intersected = false;
+                    lock (_graphicsLayer.Graphics) {
+                        foreach (var pnt in _graphicsLayer.Graphics.Where(x => Intersects(x, gr))) {
+                            _graphicsLayer.Dispatcher.Invoke(() => {
+                                SimpleMarkerSymbol targetSymbol = (SimpleMarkerSymbol) pnt.Symbol;
+                                targetSymbol.Size *= 1.3;
+                                SolidColorBrush brush = (SolidColorBrush) targetSymbol.Color;
+                                brush.Color = Color.FromArgb(brush.Color.A, (byte) (brush.Color.R + 55), brush.Color.G,
+                                    (byte) (brush.Color.B - 15));
+                                intersected = true;
+                            });
+                            break;
+                        }
+                    }
+                    if(!intersected)
+                        lock (_graphicsLayer) {
+                            _graphicsLayer.Dispatcher.Invoke(() => { Add(element); });
+  
+                        }
+                    Thread.Sleep(500);
+                }
+            }
+        }
 
         private static MapPoint GetPoint(string lon, string lat) {
             return GetPoint(double.Parse(lon), double.Parse(lat));
@@ -93,6 +115,15 @@ namespace DataVisualization.WindowsClient.Views {
             var merc = new WebMercator();
             var mp = merc.FromGeographic(new MapPoint(lon, lat)) as MapPoint;
             return mp;
+        }
+
+        private static bool Intersects(Graphic one, Graphic two) {
+            Envelope exOne = one.Geometry.Extent;
+            Envelope exTwo = two.Geometry.Extent;
+            if (exOne.XMax - IntersectOffset <= exTwo.XMax && exOne.XMax + IntersectOffset >= exTwo.XMax &&
+                exOne.YMax - IntersectOffset <= exTwo.YMax && exOne.YMax + IntersectOffset >= exTwo.YMax)
+                return true;
+            return false;
         }
 
         private void Async() {
@@ -111,17 +142,19 @@ namespace DataVisualization.WindowsClient.Views {
             }
         }
 
-        private void Add(MapPointString data) {
-            Symbol sym = new SimpleMarkerSymbol() {
+        private Graphic CreateGraphic(MapPointString data) {
+            return new Graphic() {
+                Geometry = GetPoint(data.Long, data.Lat),
+                Symbol = CreateSymbol()
+            };
+        }
+
+        private Symbol CreateSymbol() {
+            return new SimpleMarkerSymbol() {
                 Color = new SolidColorBrush(Color.FromArgb(100, 63, 127, 191)),
                 Size = 15,
                 Style = SimpleMarkerSymbol.SimpleMarkerStyle.Circle
             };
-            Graphic gr = new Graphic() {
-                    Geometry = GetPoint(data.Long,data.Lat),
-                    Symbol = sym
-                };
-                _graphicsLayer.Graphics.Add(gr);
         }
     }
 
@@ -131,5 +164,28 @@ namespace DataVisualization.WindowsClient.Views {
 
         public double Long => double.Parse(LongString);
         public double Lat => double.Parse(LatString);
+    }
+
+    public class HeatPoint {
+
+        public MapPoint Position { get; set; }
+        public Graphic Graphic { get; }
+
+        public HeatPoint(double longtitude, double latitude) {
+            WebMercator mec = new WebMercator();
+            Position = (MapPoint)mec.FromGeographic(new MapPoint(longtitude, latitude));
+            Graphic = new Graphic() {
+                Geometry = Position,
+                Symbol = new SimpleMarkerSymbol {
+                    Color = new SolidColorBrush(Color.FromArgb(100,63,127,191)),
+                    Size = 15,
+                    Style = SimpleMarkerSymbol.SimpleMarkerStyle.Circle
+                }
+            };
+
+        }
+
+
+
     }
 }

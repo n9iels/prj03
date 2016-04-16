@@ -11,14 +11,6 @@
     <UserControl.DataContext>
         <vm:MapViewModel/>
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <client:SimpleMarkerSymbol x:Key="TestResource"
-                                 Color="#12345612" Size="12" Style="Circle">
-        </client:SimpleMarkerSymbol>
-
-        <client:SimpleMarkerSymbol x:Key="BlueResource"
-                                 Color="DeepSkyBlue" Size="12" Style="Circle"/>
-    </UserControl.Resources>
     <Grid>
         <client:Map Name="EsriMap">
             <client:ArcGISTiledMapServiceLayer
