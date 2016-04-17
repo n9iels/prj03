@@ -6,16 +6,41 @@
         xmlns:client="http://schemas.esri.com/arcgis/client/2009"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
+        xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
         mc:Ignorable="d" 
         d:DesignWidth="1080" d:DesignHeight="720">
     <UserControl.DataContext>
         <vm:MapViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <client:Map Name="EsriMap">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+        <client:Map Name="EsriMap" Margin="0,0,30,0">
             <client:ArcGISTiledMapServiceLayer
                     Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
             <client:GraphicsLayer ID="GraphicsLayer"/>
         </client:Map>
+
+        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
+            <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
+            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" />
+            <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
+            <Border CornerRadius="3" Margin="5,5,0,5" Background="#616060" Padding="0,5,0,5">
+                <StackPanel>
+                    <TextBlock Text="{Binding CurrentTime, StringFormat=dd-MMM-yy}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
+                    <TextBlock Text="{Binding CurrentTime, StringFormat=HH:mm:ss}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>
