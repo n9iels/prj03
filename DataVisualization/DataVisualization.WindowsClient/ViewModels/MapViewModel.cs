@@ -23,10 +23,13 @@ namespace DataVisualization.WindowsClient.ViewModels {
             _heatPoints = new List<HeatPoint>();
             HeatMap = (Map)Application.Current.FindResource("HeatMap");
             HeatMap.Layers.LayersInitialized += delegate { HeatMap.ZoomTo(RotterdamView); };
-            
+            Speed = 1;
+
         }
 
         public ICommand StartVisualizationCommand => new DelegateCommand(x => new Task(StartMapAnimation).Start());
+        public ICommand IncreaseSpeedCommand => new DelegateCommand(x => Speed += 1);
+        public ICommand DecreaseSpeedCommand => new DelegateCommand(x => Speed -= 1);
 
         private void StartMapAnimation() {
             // Clear all current points
@@ -47,7 +50,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
                 while (true) {
                     bool animationDone = false;
 
-                    CurrentTime = CurrentTime.Add(new TimeSpan(1, 0, 0));
+                    CurrentTime = CurrentTime.Add(new TimeSpan(0, 1, 0));
                     Graphics.Dispatcher.Invoke(() => {
                         while (enumer.Current.Time < CurrentTime) {
                             HeatPoint point = new HeatPoint(enumer.Current.Longtitude, enumer.Current.Latitude);
@@ -67,7 +70,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
                     });
                     if (animationDone)
                         return;
-                    Thread.Sleep(150);
+                    Thread.Sleep((int)(10 / Speed));
                 }
             }
         }
@@ -87,6 +90,18 @@ namespace DataVisualization.WindowsClient.ViewModels {
             set {
                 _model.HeatMap = value;
                 Graphics = (GraphicsLayer) _model.HeatMap.Layers["GraphicsLayer"];
+                OnPropertyChanged();
+            }
+        }
+
+        public double Speed {
+            get { return _model.Speed; }
+            set {
+                if (value > 10)
+                    value = 10;
+                if (value < 1)
+                    value = 1;
+                _model.Speed = value;
                 OnPropertyChanged();
             }
         }

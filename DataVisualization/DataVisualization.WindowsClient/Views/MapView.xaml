@@ -31,10 +31,21 @@
             <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
             <Border CornerRadius="3" Margin="5,5,0,5" Background="#616060" Padding="0,5,0,5">
                 <StackPanel>
-                    <TextBlock Text="{Binding CurrentTime, StringFormat=dd-MMM-yy}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
+                    <TextBlock Text="{Binding CurrentTime, StringFormat=dd-MMM-yyyy}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
                     <TextBlock Text="{Binding CurrentTime, StringFormat=HH:mm:ss}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
                 </StackPanel>
             </Border>
+            <Label HorizontalAlignment="Center" FontSize="18" Margin="0,15,0,0" Foreground="#9B9292">Speed</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding DecreaseSpeedCommand}">-</Button>
+                <TextBlock Text="{Binding Speed, StringFormat={}{0}x}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
+                <Button Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding IncreaseSpeedCommand}">+</Button>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

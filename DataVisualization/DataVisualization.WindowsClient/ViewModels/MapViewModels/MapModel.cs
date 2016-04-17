@@ -6,5 +6,7 @@ namespace DataVisualization.WindowsClient.ViewModels.MapViewModels {
 
         public DateTime CurrentTime { get; set; }
         public Map HeatMap { get; set; }
+
+        public double Speed { get; set; }
     }
 }
