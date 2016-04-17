@@ -1,9 +1,7 @@
 ﻿<UserControl x:Class="DataVisualization.WindowsClient.Views.MapView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:client="http://schemas.esri.com/arcgis/client/2009"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
@@ -25,11 +23,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
-        <client:Map Name="EsriMap" Margin="0,0,30,0">
-            <client:ArcGISTiledMapServiceLayer
-                    Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-            <client:GraphicsLayer ID="GraphicsLayer"/>
-        </client:Map>
+        <ContentPresenter Margin="0,0,30,0" Content="{Binding HeatMap}"/>
 
         <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />

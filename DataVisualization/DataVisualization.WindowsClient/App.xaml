@@ -1,8 +1,8 @@
 ﻿<Application x:Class="DataVisualization.WindowsClient.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DataVisualization.WindowsClient"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
+             xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
              StartupUri="Views/MainView.xaml">
     <Application.Resources>
         <!-- Design time styles -->
@@ -54,6 +54,14 @@ and change the color of the selected bullet into a darker gray for better highli
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Heatmap Resource -->
+        <esri:Map x:Key="HeatMap" Margin="0,0,30,0">
+            <esri:ArcGISTiledMapServiceLayer
+                    Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+            <esri:GraphicsLayer ID="GraphicsLayer"/>
+        </esri:Map>
 
     </Application.Resources>
 </Application>
+
