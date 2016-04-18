@@ -40,10 +40,10 @@
                 ChartTitle="Tweets per type of weather">
                 <chart:RadialGaugeChart.Series>
                     <chart:ChartSeries
-                        SeriesTitle="Weertypes"
-                        DisplayMember="Positief"
-                        ValueMember="Count" 
-                        ItemsSource="{Binding Path=bier}"/>
+                        SeriesTitle="WeatherTypes"
+                        DisplayMember="WeatherType"
+                        ValueMember="PositivityPercentage" 
+                        ItemsSource="{Binding Path=ChartData}"/>
                 </chart:RadialGaugeChart.Series>
             </chart:RadialGaugeChart>
         </Grid>

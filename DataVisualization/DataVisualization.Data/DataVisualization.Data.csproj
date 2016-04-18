@@ -52,7 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BarChartModel\BarChartModel.cs" />
+    <Compile Include="Models\GaugeChartModel\GaugeChartModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\DayModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />

@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml"></ResourceDictionary>
     </UserControl.Resources>
-    <Grid Width="300">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="70" />
@@ -22,9 +22,6 @@
             <RowDefinition Height="70" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" HorizontalAlignment="Center">
             <Label x:Name="label" Content="Databeest" HorizontalAlignment="Left" Height="83" VerticalAlignment="Top" FontSize="64" FontWeight="Light" FontFamily="Segoe UI" Foreground="#2196F3"></Label>
         </Grid>
@@ -39,12 +36,9 @@
             <Button Style="{StaticResource Button}" Content="Gauge Graph" Command="{Binding DataContext.DisplayGaugeChartCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="4" VerticalAlignment="Center">
-            <Button Style="{StaticResource Button}" Content="Heatmap" Command="{Binding DataContext.DisplayHeatmapCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
-        </Grid>
-        <Grid Grid.Row="4" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Histogram" Command="{Binding DataContext.DisplayHistogramCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
-        <Grid Grid.Row="4" VerticalAlignment="Center">
+        <Grid Grid.Row="5" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Heatmap" Command="{Binding DataContext.DisplayHeatmapCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
     </Grid>

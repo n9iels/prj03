@@ -51,23 +51,28 @@ namespace DataVisualization.WindowsClient.ViewModels {
                     bool animationDone = false;
 
                     CurrentTime = CurrentTime.Add(new TimeSpan(0, 1, 0));
-                    Graphics.Dispatcher.Invoke(() => {
-                        while (enumer.Current.Time < CurrentTime) {
-                            HeatPoint point = new HeatPoint(enumer.Current.Longtitude, enumer.Current.Latitude);
-                            HeatPoint intersect = _heatPoints.FirstOrDefault(x => x.Intersects(point));
-                            if (intersect != null)
-                                intersect.Expand();
-                            else {
-                                _heatPoints.Add(point);
-                                Graphics.Graphics.Add(point.Graphic);
+                    try {
+                        Graphics.Dispatcher.Invoke(() => {
+                            while (enumer.Current.Time < CurrentTime) {
+                                HeatPoint point = new HeatPoint(enumer.Current.Longtitude, enumer.Current.Latitude);
+                                HeatPoint intersect = _heatPoints.FirstOrDefault(x => x.Intersects(point));
+                                if (intersect != null)
+                                    intersect.Expand();
+                                else {
+                                    _heatPoints.Add(point);
+                                    Graphics.Graphics.Add(point.Graphic);
+                                }
+                                if (!enumer.MoveNext()) {
+                                    animationDone = true;
+                                    break;
+                                }
+                                //OnPropertyChanged("HeatMap");
                             }
-                            if (!enumer.MoveNext()) {
-                                animationDone = true;
-                                break;
-                            }
-                            //OnPropertyChanged("HeatMap");
-                        }
-                    });
+                        });
+                    }
+                    catch (TaskCanceledException) {
+                        return;
+                    }
                     if (animationDone)
                         return;
                     Thread.Sleep((int)(10 / Speed));
