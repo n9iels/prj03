@@ -9,8 +9,8 @@ namespace DataVisualization.Data.Models.MapModel {
 
         public double Speed { get; set; }
 
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public DateTime FirstAvailableDate { get; set; }
         public DateTime LastAvailableDate { get; set; }

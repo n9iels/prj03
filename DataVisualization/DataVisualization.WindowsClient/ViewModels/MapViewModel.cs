@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +19,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
         private static readonly Geometry RotterdamView = new Envelope(HeatPoint.GetPosition(4.667061, 51.950285),
     HeatPoint.GetPosition(4.325111, 51.854432));
 
+        private Thread _visualizationThread;
         public MapViewModel() {
             _model = new MapModel();
             _heatPoints = new List<HeatPoint>();
@@ -30,12 +30,17 @@ namespace DataVisualization.WindowsClient.ViewModels {
             using (ProjectEntities db = new ProjectEntities()) {
                 var all = from row in db.twitter_tweets select row.created_at;
                 FirstAvailableDate = all.OrderBy(x => x).Take(1).Single();
-                LastAvailableDate = all.OrderByDescending(x => x).Take(1).First();
             }
-
+            LastAvailableDate = DateTime.Now;
+            StartDate = FirstAvailableDate;
+            EndDate = LastAvailableDate;
         }
 
-        public ICommand StartVisualizationCommand => new DelegateCommand(x => new Task(StartMapAnimation).Start());
+        public ICommand StartVisualizationCommand
+            =>
+                new DelegateCommand(x => (_visualizationThread = new Thread(StartMapAnimation)).Start(),
+                    x => _visualizationThread == null || !_visualizationThread.IsAlive);
+
         public ICommand IncreaseSpeedCommand => new DelegateCommand(x => Speed += 1);
         public ICommand DecreaseSpeedCommand => new DelegateCommand(x => Speed -= 1);
 
@@ -52,9 +57,18 @@ namespace DataVisualization.WindowsClient.ViewModels {
                     where
                         x.coordinates_lat != null && x.coordinates_lon != null && x.created_at >= StartDate &&
                         x.created_at <= EndDate
+                    orderby x.created_at
                     select new { Time = x.created_at, Latitude = x.coordinates_lat, Longtitude = x.coordinates_lon };
+
                 var enumer = data.GetEnumerator();
                 enumer.MoveNext();
+
+                // No data available
+                if (enumer.Current == null) {
+                    return;
+                }
+
+
                 CurrentTime = enumer.Current.Time;
 
                 while (true) {
@@ -76,15 +90,15 @@ namespace DataVisualization.WindowsClient.ViewModels {
                                     animationDone = true;
                                     break;
                                 }
-                                //OnPropertyChanged("HeatMap");
                             }
                         });
                     }
                     catch (TaskCanceledException) {
                         return;
                     }
-                    if (animationDone)
+                    if (animationDone) {
                         return;
+                    }
                     Thread.Sleep((int)(10 / Speed));
                 }
             }
@@ -100,7 +114,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
             }
         }
 
-        public DateTime? StartDate {
+        public DateTime StartDate {
             get { return _model.StartDate; }
             set {
                 _model.StartDate = value;
@@ -108,7 +122,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
             }
         }
 
-        public DateTime? EndDate {
+        public DateTime EndDate {
             get { return _model.EndDate; }
             set {
                 _model.EndDate = value;

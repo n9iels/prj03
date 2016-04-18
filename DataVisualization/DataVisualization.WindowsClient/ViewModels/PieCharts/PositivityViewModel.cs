@@ -1,20 +1,16 @@
-﻿using DataVisualization.Data.Models.PieChartModel.PieCharts;
-using DataVisualization.Windows;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DataVisualization.Data.Models.PieChartModel.PieCharts;
+using DataVisualization.Windows;
 
-namespace DataVisualization.WindowsClient.ViewModels.PieCharts
-{
-    public class PositivityViewModal : ViewModelBase
+namespace DataVisualization.WindowsClient.ViewModels.PieCharts {
+    public class PositivityViewModel : ViewModelBase
     {
         public ObservableCollection<PositivityModel> Data { get; private set; }
 
-        public PositivityViewModal()
+        public PositivityViewModel()
         {
             RefreshCommand.Execute(null);
         }
