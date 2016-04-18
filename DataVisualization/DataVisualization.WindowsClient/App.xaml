@@ -10,7 +10,7 @@
                 <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
                  Value="true">
                     <Setter Property="Background"
-                    Value="White" />
+                    Value="#333333" />
                 </Trigger>
             </Style.Triggers>
         </Style>
