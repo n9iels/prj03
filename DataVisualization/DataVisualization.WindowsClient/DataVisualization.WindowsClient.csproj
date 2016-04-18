@@ -109,6 +109,7 @@
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GaugeChartViewModel.cs" />
+    <Compile Include="ViewModels\LineGraphs\DayViewModel.cs" />
     <Compile Include="ViewModels\MapViewModels\ColorExtensions.cs" />
     <Compile Include="ViewModels\MapViewModels\HeatPoint.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="ViewModels\LineGraphs\PindexViewModel.cs" />
     <Compile Include="ViewModels\LineGraphs\TemperatureViewModel.cs" />
     <Compile Include="ViewModels\LineGraphViewModel.cs" />
+    <Compile Include="Views\LineGraphs\DayGraph.xaml.cs">
+      <DependentUpon>DayGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LineGraphs\PindexGraph.xaml.cs">
       <DependentUpon>PindexGraph.xaml</DependentUpon>
     </Compile>
@@ -160,6 +164,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\RefreshButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LineGraphs\DayGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

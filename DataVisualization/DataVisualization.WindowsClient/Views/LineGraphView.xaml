@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type gvm:PindexViewModel}">
                 <gv:PindexGraph/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type gvm:DayViewModel}">
+                <gv:DayGraph/>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -43,7 +46,8 @@
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
             <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding CurrentGraph.RefreshCommand}" Margin="0,50,0,0" />
             <RadioButton Style="{StaticResource RadioSelect}" Content="Average temperature" GroupName="Main" Margin="0,45,0,0" Command="{Binding SelectTemperatureCommand}" IsChecked="True"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Temperature vs Pindex" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectPindexCommand}"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity VS temperature" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectPindexCommand}"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity VS date" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectDayCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
