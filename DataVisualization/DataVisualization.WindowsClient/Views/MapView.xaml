@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" 
         d:DesignWidth="1080" d:DesignHeight="720">
     <UserControl.DataContext>
@@ -88,6 +89,8 @@
                     </Grid>
                 </Button>
             </Grid>
+            <DatePicker Margin="5,25,5,0" SelectedDate="{Binding StartDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
+            <DatePicker Margin="5, 5, 5, 0" SelectedDate="{Binding EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
         </StackPanel>
     </Grid>
 </UserControl>

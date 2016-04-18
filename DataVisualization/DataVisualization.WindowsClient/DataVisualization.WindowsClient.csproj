@@ -113,7 +113,6 @@
     <Compile Include="ViewModels\MapViewModels\ColorExtensions.cs" />
     <Compile Include="ViewModels\MapViewModels\HeatPoint.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
-    <Compile Include="ViewModels\MapViewModels\MapModel.cs" />
     <Compile Include="ViewModels\ProfileChartViewModel.cs" />
     <Compile Include="ViewModels\PieCharts\LanguageViewModel.cs" />
     <Compile Include="ViewModels\PieCharts\PositivityViewModal.cs" />
