@@ -27,13 +27,17 @@ namespace DataVisualization.WindowsClient.ViewModels {
             HeatMap.Layers.LayersInitialized += delegate { HeatMap.ZoomTo(RotterdamView); };
             Speed = 1;
 
-            using (ProjectEntities db = new ProjectEntities()) {
-                var all = from row in db.twitter_tweets select row.created_at;
-                FirstAvailableDate = all.OrderBy(x => x).Take(1).Single();
-            }
             LastAvailableDate = DateTime.Now;
-            StartDate = FirstAvailableDate;
+            StartDate = DateTime.Now - new TimeSpan(1, 0, 0, 0);
             EndDate = LastAvailableDate;
+
+            new Task(() => {
+                using (ProjectEntities db = new ProjectEntities()) {
+                    var all = from row in db.twitter_tweets select row.created_at;
+                    FirstAvailableDate = all.OrderBy(x => x).Take(1).Single();
+                }
+            }).Start();
+
         }
 
         public ICommand StartVisualizationCommand
@@ -86,10 +90,9 @@ namespace DataVisualization.WindowsClient.ViewModels {
                                     _heatPoints.Add(point);
                                     Graphics.Graphics.Add(point.Graphic);
                                 }
-                                if (!enumer.MoveNext()) {
-                                    animationDone = true;
-                                    break;
-                                }
+                                if (enumer.MoveNext()) continue;
+                                animationDone = true;
+                                break;
                             }
                         });
                     }
