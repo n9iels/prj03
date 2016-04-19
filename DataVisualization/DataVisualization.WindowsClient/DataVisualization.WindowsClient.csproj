@@ -310,6 +310,7 @@
       <DependentUpon>ProjectModel.edmx</DependentUpon>
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\CalendarIcon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

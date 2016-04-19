@@ -36,7 +36,7 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs {
 
             // Create SQL commands
             MySqlCommand command1 = conn.CreateCommand();
-            command1.CommandText = "SELECT tt.created_at, AVG(tt.pindex) FROM twitter_tweets AS tt WHERE created_at >= '2016-4-8 00:00:00' AND created_at >= @start AND created_at <= @end GROUP BY DATE(tt.created_at)";
+            command1.CommandText = "SELECT tt.created_at, AVG(tt.pindex) FROM twitter_tweets AS tt WHERE created_at >= @start AND created_at <= @end GROUP BY DATE(tt.created_at)";
             command1.Parameters.AddWithValue("@start", StartDate);
             command1.Parameters.AddWithValue("@end", EndDate);
 
