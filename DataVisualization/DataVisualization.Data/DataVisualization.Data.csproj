@@ -34,6 +34,14 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ESRI.ArcGIS.Client, Version=2.4.0.851, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\ESRI.ArcGIS.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit.DataSources, Version=2.4.0.851, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\ESRI.ArcGIS.Client.Toolkit.DataSources.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -54,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Models\GaugeChartModel\GaugeChartModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphs\DayModel.cs" />
+    <Compile Include="Models\MapModel\MapModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />

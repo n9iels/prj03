@@ -26,7 +26,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
             conn.Open();
             MySqlCommand command1 = conn.CreateCommand();
             command1.CommandText =
-                "SELECT SUM(case when tt.pindex <> 0 then 1 else 0 END) as Total, SUM(case when tt.pindex <> 0 AND tt.pindex > 0 then 1 else 0 END) as Positive, wt.name FROM twitter_tweets AS tt, weather_condition AS wc, weather_types AS wt WHERE tt.pindex != 0 AND wt.id = wc.id AND wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1) GROUP BY wt.name";
+                "SELECT SUM(case when tt.pindex <> 0 then 1 else 0 END) as Total, SUM(case when tt.pindex <> 0 AND tt.pindex > 0 then 1 else 0 END) as Positive, wt.name FROM twitter_tweets AS tt, weather_condition AS wc, weather_types AS wt WHERE tt.pindex != 0 AND wt.id = wc.id AND wc.date = tt.weather_date GROUP BY wt.name";
 
             MySqlDataReader reader = command1.ExecuteReader();
             while (reader.Read())

@@ -23,5 +23,6 @@ namespace DataVisualization.WindowsClient
         public string coordinates_lat { get; set; }
         public int pindex { get; set; }
         public string language { get; set; }
+        public Nullable<System.DateTime> weather_date { get; set; }
     }
 }

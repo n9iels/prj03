@@ -10,7 +10,7 @@
                 <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
                  Value="true">
                     <Setter Property="Background"
-                    Value="White" />
+                    Value="#333333" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -96,8 +96,22 @@
                 </EventTrigger>
             </Style.Triggers>
         </Style>
-        <!--#endregion-->
 
+        
+        <!-- DatePicker Styles -->
+        <Style TargetType="{x:Type DatePickerTextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DatePickerTextBox}">
+                        <Grid>
+                            <Border Background="#616060" CornerRadius="3"/>
+                            <TextBox Text="{TemplateBinding Text}" FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Application.Resources>
 </Application>
 
