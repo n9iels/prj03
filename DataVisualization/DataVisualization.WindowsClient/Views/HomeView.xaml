@@ -3,13 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
               mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1080">
-    <UserControl.DataContext>
-        <vm:HomeViewModel/>
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary Source="pack://application:,,,/Resources/Button.xaml"></ResourceDictionary>
     </UserControl.Resources>
@@ -33,13 +29,13 @@
             <Button Style="{StaticResource Button}" Content="Line Graphs" Command="{Binding DataContext.DisplayLineGraphCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="3" VerticalAlignment="Center">
-            <Button Style="{StaticResource Button}" Content="Gauge Graph" Command="{Binding DataContext.DisplayGaugeChartCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+            <Button Style="{StaticResource Button}" Content="Gauge Graphs" Command="{Binding DataContext.DisplayGaugeChartCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="4" VerticalAlignment="Center">
             <Button Style="{StaticResource Button}" Content="Histogram" Command="{Binding DataContext.DisplayHistogramCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
         <Grid Grid.Row="5" VerticalAlignment="Center">
-            <Button Style="{StaticResource Button}" Content="Heatmap" Command="{Binding DataContext.DisplayHeatmapCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+            <Button Style="{StaticResource Button}" Content="Heat Map" Command="{Binding DataContext.DisplayHeatmapCommand, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
         </Grid>
     </Grid>
 </UserControl>

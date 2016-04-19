@@ -41,7 +41,7 @@ namespace DataVisualization.WindowsClient.ViewModels
         }
 
         public ICommand SelectLanguageCommand => new DelegateCommand(x => CurrentGraph = new LanguageViewModel());
-        public ICommand SelectPositivityCommand => new DelegateCommand(x => CurrentGraph = new PositivityViewModal());
+        public ICommand SelectPositivityCommand => new DelegateCommand(x => CurrentGraph = new PositivityViewModel());
 
     }
 }

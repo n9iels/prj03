@@ -3,13 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:vm="clr-namespace:DataVisualization.WindowsClient.ViewModels"
         xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" 
         d:DesignWidth="1080" d:DesignHeight="720">
-    <UserControl.DataContext>
-        <vm:MapViewModel/>
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -59,9 +56,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
-        <ContentPresenter Margin="0,0,10,0" Content="{Binding HeatMap}"/>
+        <ContentPresenter Margin="0,0,5,0" Content="{Binding HeatMap}"/>
 
-        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
+        <StackPanel Grid.Column="1" Margin="0, 30, 15, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" HorizontalAlignment="Center" />
             <Button Style="{StaticResource PlayButton}" Content="Start" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" HorizontalAlignment="Center"/>
             <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
@@ -89,6 +86,10 @@
                     </Grid>
                 </Button>
             </Grid>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,25,20,0" Foreground="#9B9292">Start date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding StartDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,0,20,0" Foreground="#9B9292">End date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
         </StackPanel>
     </Grid>
 </UserControl>
