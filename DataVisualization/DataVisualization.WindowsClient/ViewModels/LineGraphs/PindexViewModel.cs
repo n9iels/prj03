@@ -68,22 +68,6 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
             conn.Close();
         }
 
-        /*
-        public void RefreshChart()
-        {
-            using (ProjectEntities db = new ProjectEntities())
-            {
-                var res = from tt in db.twitter_tweets
-                          join wc in db.weather_condition on tt.weather_date equals wc.date
-                          group wc by wc.temperaturegc into conditions
-                          select new PindexModel() { Pindex = conditions.Average(t => t.pindex), Temperature = conditions.Key };
-
-                Data = new ObservableCollection<PindexModel>(res);
-                OnPropertyChanged(nameof(Data));
-            }
-        }
-        */
-
         public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
     }
 }
