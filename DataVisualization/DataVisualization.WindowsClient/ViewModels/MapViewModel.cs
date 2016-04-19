@@ -10,6 +10,7 @@ using DataVisualization.Windows;
 using DataVisualization.WindowsClient.ViewModels.MapViewModels;
 using ESRI.ArcGIS.Client;
 using ESRI.ArcGIS.Client.Geometry;
+using System.Globalization;
 
 namespace DataVisualization.WindowsClient.ViewModels {
     public class MapViewModel : ViewModelBase {
@@ -21,6 +22,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
 
         private Thread _visualizationThread;
         public MapViewModel() {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             _model = new MapModel();
             _heatPoints = new List<HeatPoint>();
             HeatMap = (Map)Application.Current.FindResource("HeatMap");

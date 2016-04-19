@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Resources/BackButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Resources/RefreshButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/PlayButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="IncrementButtons" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Setter Property="Background" Value="#616060"/>
@@ -59,7 +60,7 @@
 
         <StackPanel Grid.Column="1" Margin="0, 30, 15, 0">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" HorizontalAlignment="Center" />
-            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" HorizontalAlignment="Center"/>
+            <Button Style="{StaticResource PlayButton}" Content="Start" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" HorizontalAlignment="Center"/>
             <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
             <Border CornerRadius="3" Margin="5" Background="#616060" Padding="0,5,0,5">
                 <StackPanel>
