@@ -41,9 +41,9 @@ namespace TwitterApi.Data_Processors {
                         new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString)) {
                     conn.Open();
                     MySqlCommand com = MySqlQueryGenerator.GenerateQuery(conn,
-                        "INSERT INTO twitter_tweets VALUES(@id,@created,@profileId,@placeId,@text,@coordLong,@coordLat,@pIndex,@language);",
+                        "INSERT INTO twitter_tweets(SELECT @id, @created, @profileId, @placeId, @text, @coordLong, @coordLat, @pIndex, @language, date FROM weather_condition WHERE date < @createdAt ORDER BY date DESC LIMIT 1)",
                         tweet.Id, tweet.CreatedAt, tweet.CreatedBy.Id, tweet.Place?.IdStr, tweet.Text,
-                        tweet.Coordinates?.Longitude, tweet.Coordinates?.Latitude, pIndex, tweet.Language.ToString());
+                        tweet.Coordinates?.Longitude, tweet.Coordinates?.Latitude, pIndex, tweet.Language.ToString(), tweet.CreatedAt);
                     com.ExecuteNonQuery();
 
                     if (tweet.Place != null) {
