@@ -6,6 +6,7 @@
              xmlns:gvm="clr-namespace:DataVisualization.WindowsClient.ViewModels.LineGraphs"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:gv="clr-namespace:DataVisualization.WindowsClient.Views.LineGraphs"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.Resources>
@@ -43,6 +44,10 @@
             <RadioButton Style="{StaticResource RadioSelect}" Content="Temperature" GroupName="Main" Margin="25,45,0,0" Command="{Binding SelectTemperatureCommand}" IsChecked="True"/>
             <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="25,10,0,0" Command="{Binding SelectPindexCommand}"/>
             <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity and date" GroupName="Main" Margin="25,10,0,0" Command="{Binding SelectDayCommand}"/>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,25,20,0" Foreground="#9B9292">Start date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding CurrentGraph.StartDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding CurrentGraph.FirstAvailableDate}" DisplayDateEnd="{Binding CurrentGraph.LastAvailableDate}"/>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,0,20,0" Foreground="#9B9292">End date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding CurrentGraph.EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding CurrentGraph.FirstAvailableDate}" DisplayDateEnd="{Binding CurrentGraph.LastAvailableDate}"/>
         </StackPanel>
     </Grid>
 </UserControl>

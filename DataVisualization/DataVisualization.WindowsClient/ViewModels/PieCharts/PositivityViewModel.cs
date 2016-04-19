@@ -34,7 +34,7 @@ namespace DataVisualization.WindowsClient.ViewModels.PieCharts {
             using (ProjectEntities db = new ProjectEntities())
             {
                 var res = from data in db.twitter_tweets
-                          where data.created_at > StartDate && data.created_at < EndDate
+                          where data.created_at >= StartDate && data.created_at <= EndDate
                           let range = (data.pindex < 0 ? "Negative" : data.pindex > 0 ? "Positive" : "Neutral")
                           group data by range
                     into r

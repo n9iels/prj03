@@ -61,12 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\GaugeChartModel\GaugeChartModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\DayData.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphs\DayModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureModel.cs" />
     <Compile Include="Models\MapModel\MapModel.cs" />
     <Compile Include="Models\PieChartModel\PieChartModel.cs" />
     <Compile Include="Models\LineGraphModel\LineGraphModel.cs" />
-    <Compile Include="Models\LineGraphModel\LineGraphs\PindexModel.cs" />
-    <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureModel.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\PindexData.cs" />
+    <Compile Include="Models\LineGraphModel\LineGraphs\TemperatureData.cs" />
     <Compile Include="Models\MainModel\MainModel.cs" />
     <Compile Include="Models\PieChartModel\PieCharts\LanguageModel.cs" />
     <Compile Include="Models\PieChartModel\PieCharts\PositivityModel.cs" />

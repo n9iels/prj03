@@ -34,7 +34,7 @@ namespace DataVisualization.WindowsClient.ViewModels.PieCharts {
             using (ProjectEntities db = new ProjectEntities()) {
 
                 var first = from t in db.twitter_tweets
-                    where t.created_at > StartDate && t.created_at < EndDate
+                    where t.created_at >= StartDate && t.created_at <= EndDate
                     group t by t.language
                     into lang
                     where lang.Key != null && lang.Key != "UN_NotReferenced"
