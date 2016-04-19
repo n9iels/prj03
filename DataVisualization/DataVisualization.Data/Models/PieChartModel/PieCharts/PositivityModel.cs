@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataVisualization.Data.Models.PieChartModel.PieCharts
-{
-    public class PositivityModel
-    {
-        public string Category { get; set; }
+namespace DataVisualization.Data.Models.PieChartModel.PieCharts {
+    public class PositivityModel {
 
-        public int Number { get; set; }
+        #region Data Binding
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime FirstAvailableDate { get; set; }
+        public DateTime LastAvailableDate { get; set; }
+
+        #endregion
     }
 }

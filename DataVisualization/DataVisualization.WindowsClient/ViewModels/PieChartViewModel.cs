@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using DataVisualization.Data.Models.PieChartModel;
 using DataVisualization.Windows;
-using DataVisualization.WindowsClient.ViewModels;
 using DataVisualization.WindowsClient.ViewModels.PieCharts;
 
-namespace DataVisualization.WindowsClient.ViewModels
-{
+namespace DataVisualization.WindowsClient.ViewModels {
     public class PieChartViewModel : ViewModelBase
     {
         private readonly PieChartModel _model;
