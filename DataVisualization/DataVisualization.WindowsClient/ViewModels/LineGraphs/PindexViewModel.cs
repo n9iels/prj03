@@ -23,7 +23,6 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
         {
             RefreshCommand.Execute(null);
         }
-
         public void RefreshChart()
         {
             MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["dataBeest"].ConnectionString);
@@ -31,7 +30,7 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
 
             // Create SQL commands
             MySqlCommand command1 = conn.CreateCommand();
-            command1.CommandText = "SELECT AVG(tt.pindex), wc.temperaturegc FROM weather_condition AS wc, twitter_tweets AS tt WHERE wc.date = (SELECT date FROM weather_condition WHERE date < tt.created_at ORDER BY date DESC LIMIT 1) GROUP BY wc.temperaturegc;";
+            command1.CommandText = "SELECT AVG(tt.pindex), wc.temperaturegc FROM weather_condition AS wc, twitter_tweets AS tt WHERE wc.date = tt.weather_date GROUP BY wc.temperaturegc;";
 
             MySqlCommand command2 = conn.CreateCommand();
             command2.CommandText = "SELECT AVG(pindex) FROM twitter_tweets";
@@ -68,6 +67,22 @@ namespace DataVisualization.WindowsClient.ViewModels.LineGraphs
             // Close database after execution
             conn.Close();
         }
+
+        /*
+        public void RefreshChart()
+        {
+            using (ProjectEntities db = new ProjectEntities())
+            {
+                var res = from tt in db.twitter_tweets
+                          join wc in db.weather_condition on tt.weather_date equals wc.date
+                          group wc by wc.temperaturegc into conditions
+                          select new PindexModel() { Pindex = conditions.Average(t => t.pindex), Temperature = conditions.Key };
+
+                Data = new ObservableCollection<PindexModel>(res);
+                OnPropertyChanged(nameof(Data));
+            }
+        }
+        */
 
         public ICommand RefreshCommand => new DelegateCommand((x) => new Task(RefreshChart).Start());
     }
