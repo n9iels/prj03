@@ -79,7 +79,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
                 while (true) {
                     bool animationDone = false;
 
-                    CurrentTime = ((DateTime)CurrentTime).Add(new TimeSpan(0, 1, 0));
+                    CurrentTime = CurrentTime.Value.AddMinutes(Speed);
                     try {
                         Graphics.Dispatcher.Invoke(() => {
                             while (enumer.Current.Time < CurrentTime) {
@@ -104,7 +104,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
                         Task.Run(() => Application.Current.Dispatcher.Invoke(CommandManager.InvalidateRequerySuggested));
                         return;
                     }
-                    Thread.Sleep((int)(10 / Speed));
+                    Thread.Sleep(10);
                 }
             }
         }
@@ -167,10 +167,10 @@ namespace DataVisualization.WindowsClient.ViewModels {
         public double Speed {
             get { return _model.Speed; }
             set {
-                if (value > 10)
-                    value = 10;
-                if (value < 1)
-                    value = 1;
+                if (value > 25)
+                    value = 25;
+                if (value < 0)
+                    value = 0;
                 _model.Speed = value;
                 OnPropertyChanged();
             }
