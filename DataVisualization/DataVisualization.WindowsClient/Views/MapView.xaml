@@ -56,9 +56,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
+
         <ContentPresenter Margin="0,80,5,0" Content="{Binding HeatMap}"/>
 
-            <StackPanel Grid.Column="1" Margin="0, 30, 15, 0">
+        <StackPanel Margin="895,30,20,0" Grid.ColumnSpan="2">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" HorizontalAlignment="Center" />
             <Button Style="{StaticResource PlayButton}" Content="Start" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" HorizontalAlignment="Center"/>
             <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
@@ -90,12 +91,29 @@
             <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding StartDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
             <Label HorizontalAlignment="Center" FontSize="15" Margin="0,0,20,0" Foreground="#9B9292">End date</Label>
             <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
+            <Grid>
+                <Border Margin="10,150,0,10" CornerRadius="8,8,8,8" Height="15">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="RoyalBlue" Offset="0.0"/>
+                            <GradientStop Color="blue" Offset="0.33"/>
+                            <GradientStop Color="Firebrick" Offset="0.66"/>
+                            <GradientStop Color="Maroon" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Label x:Name ="Few" Content="Few" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="31" FontSize="10"  Margin="10,125,124,0" Foreground="#9B9292"/>
+                <Label x:Name ="Tweets" Content="  Amount of tweets in an area" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="145" FontSize="10"  Margin="10,100,10,0" Foreground="#9B9292"/>
+                <Label x:Name ="Many" Content="Many" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="38" FontSize="10"  Margin="127,125,0,0" Foreground="#9B9292"/>
+            </Grid>
         </StackPanel>
         <Grid HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="630" Margin="15,0,0,0">
-            <Label x:Name="Rotterdam" Content="Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="51" Width="620" FontSize="30" Foreground="#9B9292"/>
-            <Label x:Name="Heatmap" Content="A heatmap of the city of Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="620" FontSize="15" Margin="0,40,0,0" Foreground="#9B9292"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="73*"/>
+                <ColumnDefinition Width="53*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="Rotterdam" Content="Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="51" Width="620" FontSize="30" Foreground="#9B9292" Grid.ColumnSpan="2"/>
+            <Label x:Name="Heatmap" Content="A heatmap of the amount of tweets in the city of Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="620" FontSize="15" Margin="0,40,0,0" Foreground="#9B9292" Grid.ColumnSpan="2"/>
         </Grid>
-
-
     </Grid>
 </UserControl>
