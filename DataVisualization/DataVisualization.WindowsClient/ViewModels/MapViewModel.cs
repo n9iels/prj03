@@ -28,7 +28,6 @@ namespace DataVisualization.WindowsClient.ViewModels {
             HeatMap = (Map)Application.Current.FindResource("HeatMap");
             HeatMap.Layers.LayersInitialized += delegate { HeatMap.ZoomTo(RotterdamView); };
             Speed = 1;
-
             LastAvailableDate = DateTime.Now;
             StartDate = DateTime.Now - new TimeSpan(1, 0, 0, 0);
             EndDate = LastAvailableDate;
@@ -102,6 +101,7 @@ namespace DataVisualization.WindowsClient.ViewModels {
                         return;
                     }
                     if (animationDone) {
+                        Task.Run(() => Application.Current.Dispatcher.Invoke(CommandManager.InvalidateRequerySuggested));
                         return;
                     }
                     Thread.Sleep((int)(10 / Speed));

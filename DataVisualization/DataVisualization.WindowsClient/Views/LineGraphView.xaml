@@ -6,6 +6,7 @@
              xmlns:gvm="clr-namespace:DataVisualization.WindowsClient.ViewModels.LineGraphs"
              xmlns:v="clr-namespace:DataVisualization.WindowsClient.Views"
              xmlns:gv="clr-namespace:DataVisualization.WindowsClient.Views.LineGraphs"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <UserControl.Resources>
@@ -32,17 +33,21 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
         
-        <ContentControl Content="{Binding CurrentGraph}"/>
+        <ContentControl Content="{Binding CurrentGraph}" Margin="0,0,5,0"/>
         
-        <StackPanel Grid.Column="1" Margin="0, 30, 0, 0">
-            <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" />
-            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding CurrentGraph.RefreshCommand}" Margin="0,50,0,0" />
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Average temperature" GroupName="Main" Margin="0,45,0,0" Command="{Binding SelectTemperatureCommand}" IsChecked="True"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity VS temperature" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectPindexCommand}"/>
-            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity VS date" GroupName="Main" Margin="0,10,0,0" Command="{Binding SelectDayCommand}"/>
+        <StackPanel Grid.Column="1" Margin="0, 30, 15, 0">
+            <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" HorizontalAlignment="Center"/>
+            <Button Style="{StaticResource RefreshButton}" Content="Refresh" Command="{Binding CurrentGraph.RefreshCommand}" Margin="0,50,0,0" HorizontalAlignment="Center" />
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Temperature" GroupName="Main" Margin="25,45,0,0" Command="{Binding SelectTemperatureCommand}" IsChecked="True"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity" GroupName="Main" Margin="25,10,0,0" Command="{Binding SelectPindexCommand}"/>
+            <RadioButton Style="{StaticResource RadioSelect}" Content="Positivity and date" GroupName="Main" Margin="25,10,0,0" Command="{Binding SelectDayCommand}"/>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,25,20,0" Foreground="#9B9292">Start date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding CurrentGraph.StartDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding CurrentGraph.FirstAvailableDate}" DisplayDateEnd="{Binding CurrentGraph.LastAvailableDate}"/>
+            <Label HorizontalAlignment="Center" FontSize="15" Margin="0,0,20,0" Foreground="#9B9292">End date</Label>
+            <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding CurrentGraph.EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding CurrentGraph.FirstAvailableDate}" DisplayDateEnd="{Binding CurrentGraph.LastAvailableDate}"/>
         </StackPanel>
     </Grid>
 </UserControl>

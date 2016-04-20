@@ -105,7 +105,6 @@
                 <Label x:Name ="Few" Content="Few" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="31" FontSize="10"  Margin="10,125,124,0" Foreground="#9B9292"/>
                 <Label x:Name ="Tweets" Content="  Amount of tweets in an area" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="145" FontSize="10"  Margin="10,100,10,0" Foreground="#9B9292"/>
                 <Label x:Name ="Many" Content="Many" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="38" FontSize="10"  Margin="127,125,0,0" Foreground="#9B9292"/>
-
             </Grid>
         </StackPanel>
         <Grid HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="630" Margin="15,0,0,0">
@@ -116,7 +115,5 @@
             <Label x:Name="Rotterdam" Content="Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="51" Width="620" FontSize="30" Foreground="#9B9292" Grid.ColumnSpan="2"/>
             <Label x:Name="Heatmap" Content="A heatmap of the amount of tweets in the city of Rotterdam" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="620" FontSize="15" Margin="0,40,0,0" Foreground="#9B9292" Grid.ColumnSpan="2"/>
         </Grid>
-
-
     </Grid>
 </UserControl>

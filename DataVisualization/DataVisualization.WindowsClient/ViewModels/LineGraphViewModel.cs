@@ -1,16 +1,9 @@
-﻿using DataVisualization.Data.Models.LineGraphModel;
+﻿using System.Windows.Input;
+using DataVisualization.Data.Models.LineGraphModel;
 using DataVisualization.Windows;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using DataVisualization.WindowsClient.ViewModels.LineGraphs;
 
-namespace DataVisualization.WindowsClient.ViewModels
-{
+namespace DataVisualization.WindowsClient.ViewModels {
     public class LineGraphViewModel : ViewModelBase
     {
         private readonly LineGraphModel _model;
