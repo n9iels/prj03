@@ -59,7 +59,7 @@
 
         <ContentPresenter Margin="0,80,5,0" Content="{Binding HeatMap}"/>
 
-        <StackPanel Margin="895,30,20,0" Grid.ColumnSpan="2">
+        <StackPanel Margin="2,30,20,0" Grid.Column="1">
             <Button Style="{StaticResource BackButton}" Content="Back" Command="{Binding DataContext.DisplayHomeCommand, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type v:MainView}}}" HorizontalAlignment="Center" />
             <Button Style="{StaticResource PlayButton}" Content="Start" Command="{Binding StartVisualizationCommand}" Margin="0,50,0,0" HorizontalAlignment="Center"/>
             <Label HorizontalAlignment="Center" FontSize="18" Margin="0,45,0,0" Foreground="#9B9292">Current Time</Label>
