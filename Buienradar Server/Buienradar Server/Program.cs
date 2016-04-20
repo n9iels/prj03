@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Xml.Linq;
+using MySql.Data.MySqlClient;
 
 namespace Buienradar_Server {
     public class Program {
@@ -27,11 +29,28 @@ namespace Buienradar_Server {
                         // Console log
                         Console.WriteLine("Weather updated " + data["datum"]);
                     }
-  
+
                 }
-                catch (WebException)
-                {
+                catch (WebException ex) {
                     Console.WriteLine("Unable to load XML Data");
+                    try {
+                        string[] lines = {
+                            "==============", "Failed to load XML data from : \"http://xml.buienradar.nl\".", $"Error message : {ex.Message}" ,
+                            ""
+                        };
+                        File.AppendAllLines("error.log", lines);
+                    }
+                    catch { }
+                }
+                catch (MySqlException ex) {
+                    try {
+                        string[] lines = {
+                            "==============", "Failed to upload data to MySql database.",
+                            $"Error message : {ex.Message}", ""
+                        };
+                        File.AppendAllLines("error.log", lines);
+                    }
+                    catch { }
                 }
 
                 // Wait 1 minute
