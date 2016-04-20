@@ -5,6 +5,9 @@ using MySql.Data.MySqlClient;
 namespace TwitterApi.Data_Processors {
     internal static class MySqlQueryGenerator {
 
+        /// <summary>
+        /// Generates a MySql command using the specified <see cref="MySqlConnection"/>, query and objects.
+        /// </summary>
         internal static MySqlCommand GenerateQuery(MySqlConnection connection, string query, params object[] parameters) {
             MatchCollection paramMatches = GetParameters(query);
             if (paramMatches.Count != parameters.Length)
@@ -20,6 +23,10 @@ namespace TwitterApi.Data_Processors {
 
             return command;
         }
+
+        /// <summary>
+        /// Generates a MySql command using the specified query and objects.
+        /// </summary>
 
         internal static MySqlCommand GenerateQuery(string query, params object[] parameters) {
             return GenerateQuery(null, query, parameters);

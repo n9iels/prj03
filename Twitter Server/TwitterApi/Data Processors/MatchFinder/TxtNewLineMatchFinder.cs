@@ -4,7 +4,12 @@ using System.Linq;
 using TwitterApi.Data_Processors.MatchFinder.Helpers;
 
 namespace TwitterApi.Data_Processors.MatchFinder {
+
     internal class TxtNewLineMatchFinder : IMatchFinder {
+
+        /// <summary>
+        /// Finds matches using the specified data and file paths.
+        /// </summary>
         public Dictionary<string, int> FindMatches(string data, params string[] filePaths) {
             var matches = new Dictionary<string, int>();
             string[] lower = data.ToLowerInvariant().Split();

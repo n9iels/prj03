@@ -15,16 +15,30 @@ namespace TwitterApi.Data_Processors {
         private readonly IMatchFinder _matchFinder;
         private readonly ILogger<TweetLogData> _logger; 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PositivityIndexCalculator"/> class using the specified <see cref="IMatchFinder"/> and <see cref="ILogger{TweetLogData}"/>.
+        /// </summary>
+        /// <param name="matchFinder">The <see cref="IMatchFinder"/> to use.</param>
+        /// <param name="logger">The <see cref="ILogger{T}"/> to use.</param>
         public PositivityIndexCalculator(IMatchFinder matchFinder, ILogger<TweetLogData> logger) {
             _matchFinder = matchFinder;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Processes a <see cref="ITweet"/>.
+        /// </summary>
+        /// <param name="tweet">The <see cref="ITweet"/> to be processed.</param>
         public void Process(ITweet tweet) {
             double pIndex = Calculate(tweet.Text);
             UploadToDatabase(tweet, pIndex);
         }
 
+        /// <summary>
+        /// Calculates the pindex using the specified text.
+        /// </summary>
+        /// <param name="tweetText">The text used in the pindex calculation.</param>
+        /// <returns>A <see cref="double"/> containing the pindex.</returns>
         protected double Calculate(string tweetText) {
             Dictionary<string, int> positiveWords = _matchFinder.FindMatches(tweetText, "Resources/Word Lists/Positive-Words-NL.txt", "Resources/Word Lists/Positive-Words-EN.txt");
             Dictionary<string, int> negativeWords = _matchFinder.FindMatches(tweetText, "Resources/Word Lists/Negative-Words-NL.txt" , "Resources/Word Lists/Negative-Words-EN.txt");
@@ -34,6 +48,11 @@ namespace TwitterApi.Data_Processors {
             return positive - negative;
         }
 
+        /// <summary>
+        /// Uploads the specifed <see cref="ITweet"/> data and the specified pindex to the database.
+        /// </summary>
+        /// <param name="tweet">The <see cref="ITweet"/> to upload.</param>
+        /// <param name="pIndex">The pindex to upload.</param>
         protected void UploadToDatabase(ITweet tweet, double pIndex) {
             try {
                 using (

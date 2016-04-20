@@ -11,6 +11,9 @@ namespace TwitterApi.Streams {
 
     internal class TwitterStream {
         
+        /// <summary>
+        /// Gets the <see cref="FilteredStream"/> used in the <see cref="TwitterStream"/>.
+        /// </summary>
         internal FilteredStream Stream { get; }
 
         private readonly QueueBase<ITweet> _queue;
@@ -20,6 +23,10 @@ namespace TwitterApi.Streams {
             remove { Stream.TweetReceived -= value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TwitterStream"/> class using the specified <see cref="QueueBase{T}"/>.
+        /// </summary>
+        /// <param name="queue"></param>
         public TwitterStream(QueueBase<ITweet> queue) {
             _queue = queue;
 
@@ -32,6 +39,9 @@ namespace TwitterApi.Streams {
             Stream = (FilteredStream) Tweetinvi.Stream.CreateFilteredStream();
         }
 
+        /// <summary>
+        /// Starts the <see cref="TwitterStream"/>.
+        /// </summary>
         public void Start() {
             // Start listening to TweetReceived event using the Received method.
             Stream.MatchingTweetReceived += Received;
@@ -46,19 +56,6 @@ namespace TwitterApi.Streams {
         }
 
         private void Received(object sender, MatchedTweetReceivedEventArgs e) {
-
-            // Main information needed for database
-            long id = e.Tweet.Id;
-            string name = e.Tweet.CreatedBy.Name;
-            string text = e.Tweet.Text;
-            DateTime created = e.Tweet.CreatedAt;
-            ICoordinates coords = e.Tweet.Coordinates;
-            IPlace place = e.Tweet.Place;
-
-            // Information for potential future us.
-            int retweets = e.Tweet.RetweetCount;
-            int favouriteCount = e.Tweet.FavoriteCount;
-
             //Enqueue the tweet
             _queue.Enqueue(e.Tweet);
 
