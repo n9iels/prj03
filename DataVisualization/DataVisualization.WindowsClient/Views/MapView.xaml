@@ -92,13 +92,13 @@
             <Label HorizontalAlignment="Center" FontSize="15" Margin="0,0,20,0" Foreground="#9B9292">End date</Label>
             <DatePicker Foreground="White" BorderThickness="0" Margin="5,0,5,0" SelectedDate="{Binding EndDate, TargetNullValue={x:Static system:DateTime.Now}}" DisplayDateStart="{Binding FirstAvailableDate}" DisplayDateEnd="{Binding LastAvailableDate}"/>
             <Grid>
-                <Border Margin="10,150,0,10" CornerRadius="8,8,8,8" Height="15">
+                <Border Margin="10,150,0,10" CornerRadius="8,8,8,8" Height="15" Opacity="0.5">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                            <GradientStop Color="RoyalBlue" Offset="0.0"/>
-                            <GradientStop Color="blue" Offset="0.33"/>
-                            <GradientStop Color="Firebrick" Offset="0.66"/>
-                            <GradientStop Color="Maroon" Offset="1.0"/>
+                            <GradientStop Color="#3F7FBF" Offset="0.0"/>
+                            <!--<GradientStop Color="blue" Offset="0.33"/>
+                            <GradientStop Color="Firebrick" Offset="0.66"/>-->
+                            <GradientStop Color="#FF0000" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.Background>
                 </Border>
