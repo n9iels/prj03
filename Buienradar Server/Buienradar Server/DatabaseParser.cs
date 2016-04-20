@@ -7,6 +7,11 @@ namespace Buienradar_Server
 {
     class DatabaseParser
     {
+
+        /// <summary>
+        /// Uploads the specified data to the database.
+        /// </summary>
+        /// <param name="data">Data to be uploaded.</param>
         public static void UploadToDatabase(Dictionary<string, string> data)
         {
             // Connect to the database
